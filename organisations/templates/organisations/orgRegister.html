@@ -1,0 +1,134 @@
+{% extends 'organisations/base.html' %}
+
+{% block content %}
+  <!--Section: Contact v.2-->
+  <section class="mb-4">
+
+  <!--Section heading-->
+  <h2 class="h1-responsive font-weight-bold text-center my-4">Organisation Resigstraions Form</h2>
+  <!--Section description-->
+  
+<div class="container">
+  <div class="row">
+
+      <!--Grid column-->
+      <div class="col-md-9 mb-md-0 mb-5">
+          <form id="contact-form" name="contact-form" action="{% url 'register' %}" method="POST">
+            {% csrf_token %}
+              <!--Grid row-->
+              
+              <div class="row">
+
+                  <!--Grid column-->
+                  <div class="col-md-6">
+                    <div class="md-form mb-0">
+                      <label for="org_id" class="">Organisation Id</label>
+                      <input type="text" id="org_id" name="org_id" class="form-control">
+                      
+                  </div>
+                  </div>
+                  <!--Grid column-->
+
+                  
+
+              </div>
+              <div class="row">
+
+
+                  <!--Grid column-->
+                  <div class="col-md-6">
+                    <div class="md-form mb-0">
+                      <label for="name" class="">Name</label>
+                      <input type="text" id="name" name="name" class="form-control">
+                      
+                  </div>
+                  </div>
+                  <!--Grid column-->
+
+                  
+
+              </div>
+              <div class="row">
+
+                  <!--Grid column-->
+                  <div class="col-md-6">
+                    <div class="md-form mb-0">
+                      <label for="email" class="">Your email</label>
+                      <input type="text" id="email" name="email" class="form-control">
+                      
+                  </div>
+                  </div>
+                  <!--Grid column-->
+
+                  
+
+              </div>
+              <div class="row">
+
+                  <!--Grid column-->
+                  <div class="col-md-6">
+                    <div class="md-form mb-0">
+                      <label for="cc" class="">CC</label>
+                      <input type="text" id="cc" name="cc" class="form-control">
+                      
+                  </div>
+                  </div>
+                  <!--Grid column-->
+
+                  
+
+              </div>
+              <div class="row">
+
+                  <!--Grid column-->
+                  <div class="col-md-6">
+                    <div class="md-form mb-0">
+                      <label for="sender_email" class="">Sender Email</label>
+                      <input type="text" id="sender_email" name="sender_email" class="form-control">
+                      
+                  </div>
+                  </div>
+                  <!--Grid column-->
+
+                  
+
+              </div>
+              <div class="row">
+
+                  <!--Grid column-->
+                  <div class="col-md-6">
+                    <div class="md-form mb-0">
+                      <label for="sender_phn" class="">Sender Phone</label>
+                      <input type="text" id="sender_phn" name="sender_phn" class="form-control">
+                      
+                  </div>
+                  </div>
+                  <!--Grid column-->
+
+                  
+
+              </div>
+
+              <!--Grid row-->
+
+              
+              
+
+          </form>
+
+          <div class="text-center text-md-left">
+              <a class="btn btn-primary" onclick="document.getElementById('contact-form').submit();">Send</a>
+          </div>
+          </div>
+          <div class="status"></div>
+      </div>
+      <!--Grid column-->
+
+     
+     
+
+  </div>
+
+</section>
+<!--Section: Contact v.2-->
+{% endblock %}
