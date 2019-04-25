@@ -27,12 +27,14 @@ def orgreg(request):
 def custreg(request):
 	if request.method == 'POST':
 		
-		cust_id=request.POST.get('orgid')
+		org_id=request.POST.get('orgid')
 		cust_name=request.POST.get('custname')
 		cust_email=request.POST.get('custemail')
 		cust_phn=request.POST.get('custphone')
 		cust_status=request.POST.get('custstatus')
 
+		cust = Customer(orgid=org_id, custname=cust_name, custemail=cust_email,custphn=cust_phn,custstatus=cust_status )
+		cust.save()
 		return render(request,'organisations/orgRegister.html')
 	else:
 		return render(request,'organisations/customer.html')
