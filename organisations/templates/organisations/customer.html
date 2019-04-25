@@ -13,10 +13,22 @@
 
       <!--Grid column-->
       <div class="col-md-9 mb-md-0 mb-5">
-          <form id="contact-form" name="contact-form" action="{% url 'register' %}" method="POST">
+          <form id="contact-form" name="contact-form" action="{% url 'orgreg' %}" method="POST">
             {% csrf_token %}
               <!--Grid row-->
-              
+              <div class="row">
+
+                  <!--Grid column-->
+                  <div class="col-md-6">
+                    <div class="md-form mb-0">
+                      <label for="email" class="">Oraganisation Id</label>
+                      <input type="text" id="orgid" name="orgid" class="form-control">
+                      
+                  </div>
+                  </div>
+                  <!--Grid column-->
+
+              </div>
               
               <div class="row">
 
@@ -25,7 +37,7 @@
                   <div class="col-md-6">
                     <div class="md-form mb-0">
                       <label for="name" class="">Name</label>
-                      <input type="text" id="name" name="name" class="form-control">
+                      <input type="text" id="name" name="custname" class="form-control">
                       
                   </div>
                   </div>
@@ -40,7 +52,7 @@
                   <div class="col-md-6">
                     <div class="md-form mb-0">
                       <label for="email" class="">Email</label>
-                      <input type="text" id="email" name="email" class="form-control">
+                      <input type="text" id="email" name="custemail" class="form-control">
                       
                   </div>
                   </div>
@@ -54,7 +66,7 @@
                   <div class="col-md-6">
                     <div class="md-form mb-0">
                       <label for="Phone" class="">Phone</label>
-                      <input type="text" id="Phone" name="Phone" class="form-control"> 
+                      <input type="text" id="Phone" name="custphone" class="form-control"> 
                   </div>
                   </div>
                   <!--Grid column-->
@@ -66,7 +78,7 @@
                   <div class="col-md-6">
                     <div class="md-form mb-0">
                       <label for="dectonate" class="">dectonate</label>
-                      <input type="text" id="dectonate" name="dectonate" class="form-control"> 
+                      <input type="text" id="dectonate" name="custstatus" class="form-control"> 
                   </div>
                   </div>
                   <!--Grid column-->
@@ -82,7 +94,7 @@
           </form>
 
           <div class="text-center text-md-left">
-              <a class="btn btn-primary" onclick="document.getElementById('contact-form').submit();">Send</a>
+              <a class="btn btn-primary" onclick="document.getElementById('customer-form').submit();">Send</a>
           </div>
           </div>
           <div class="status"></div>
