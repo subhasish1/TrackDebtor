@@ -7,7 +7,7 @@ class Organisations(models.Model):
 	orgsendername = models.CharField(max_length=50)
 	orgsenderphn =  models.CharField(max_length=13)
 	orgpassword =  models.CharField(max_length=13)
-class Meta:
+	class Meta:
 		db_table='organisations'
 
 class Customer(models.Model):
@@ -16,5 +16,5 @@ class Customer(models.Model):
 	custemail = models.CharField(max_length=100)
 	custphn = models.CharField(max_length=13)
 	custstatus = models.CharField(max_length=10)
-class Meta:
-	db_table='customer'
+	class Meta:
+		db_table='customer'
