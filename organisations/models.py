@@ -18,3 +18,15 @@ class Customer(models.Model):
 	custstatus = models.CharField(max_length=10)
 	class Meta:
 		db_table='customer'
+
+class Outstanding(models.Model):
+	orgid = models.CharField(max_length=3)
+	custid = models.CharField(max_length=3)
+	bill_no = models.CharField(max_length=20)
+	bill_amt = models.CharField(max_length=20)
+	due_amt = models.CharField(max_length=10)
+	bill_date = models.DateField()
+	cleared_on=models.DateField()
+	class Meta:
+		db_table='outstanding'
+		

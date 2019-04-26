@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.conf.urls.static import static
-from .models import Organisations , Customer
+from .models import Organisations , Customer,Outstanding
 
 # Create your views here.
 
@@ -38,3 +38,19 @@ def custreg(request):
 		return render(request,'organisations/orgRegister.html')
 	else:
 		return render(request,'organisations/customer.html')
+def outstanding(request,orgid):
+	if request.method == 'POST':
+		
+		org_id=request.POST.get('orgid')
+		cust_id=request.POST.get('custid')
+		bill_no=request.POST.get('bill_no')
+		bill_amt=request.POST.get('bill_amt')
+		due_amt=request.POST.get('due_amt')
+		bill_date=request.POST.get('bill_date')
+		cleared_on=request.POST.get('cleared_on')
+
+		p = outstanding(orgid=org_id, custid=cust_id, bill_no=bill_no, bill_amt=bill_amt, due_amt=due_amt, bill_date=bill_date, cleared_on=cleared_on )
+		p.save()
+		return render(request,'organisations/outstanding.html')
+	else:
+		return render(request,'organisations/outstanding.html')
