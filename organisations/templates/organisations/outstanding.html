@@ -1,0 +1,144 @@
+{% extends 'organisations/base.html' %}
+
+{% block content %}
+  <!--Section: Contact v.2-->
+  <section class="mb-4">
+
+  <!--Section heading-->
+  <h2 class="h1-responsive font-weight-bold text-center my-4">Outstanding Form</h2>
+  <!--Section description-->
+  
+<div class="container">
+  <div class="row">
+
+      <!--Grid column-->
+      <div class="col-md-9 mb-md-0 mb-5">
+          <form id="outstanding-form" name="outstanding-form" action="{% url 'outstanding' %}" method="POST">
+            {% csrf_token %}
+              <!--Grid row-->
+              
+             
+              <div class="row">
+
+
+                  <!--Grid column-->
+                  <div class="col-md-6">
+                    <div class="md-form mb-0">
+                      <label for="orgid" class="">org_id</label>
+                      <input type="text" id="orgid" name="orgid" class="form-control">
+                      
+                  </div>
+                  </div>
+                  <!--Grid column-->
+
+                  
+
+              </div>
+              <div class="row">
+
+                  <!--Grid column-->
+                  <div class="col-md-6">
+                    <div class="md-form mb-0">
+                      <label for="custid" class="">cust_id</label>
+                      <input type="text" id="custid" name="custid" class="form-control">
+                      
+                  </div>
+                  </div>
+                  <!--Grid column-->
+
+                  
+
+              </div>
+              <div class="row">
+
+                  <!--Grid column-->
+                  <div class="col-md-6">
+                    <div class="md-form mb-0">
+                      <label for="bill_no" class="">bill_no</label>
+                      <input type="text" id="bill_no" name="bill_no" class="form-control">
+                      
+                  </div>
+                  </div>
+                  <!--Grid column-->
+
+                  
+
+              </div>
+              <div class="row">
+
+                  <!--Grid column-->
+                  <div class="col-md-6">
+                    <div class="md-form mb-0">
+                      <label for="bill_amt" class="">bill_amt</label>
+                      <input type="text" id="bill_amt" name="bill_amt" class="form-control">
+                      
+                  </div>
+                  </div>
+                  <!--Grid column-->
+
+                  
+
+              </div>
+              <div class="row">
+
+                  <!--Grid column-->
+                  <div class="col-md-6">
+                    <div class="md-form mb-0">
+                      <label for="due_amt" class="">due_amt</label>
+                      <input type="text" id="due_amt" name="due_amt" class="form-control">
+                      
+                  </div>
+                  </div>
+                  <!--Grid column-->
+
+                  
+
+              </div>
+              <div class="row">
+
+                <!--Grid column-->
+                <div class="col-md-6">
+                  <div class="md-form mb-0">
+                    <label for="bill_date" class="">bill_date</label>
+                    <input type="date" id="bill_date" name="bill_date" class="form-control">
+                    
+                </div>
+                </div>
+                <!--Grid column-->
+
+                
+
+            </div>
+            <div class="row">
+
+                <!--Grid column-->
+                <div class="col-md-6">
+                  <div class="md-form mb-0">
+                    <label for="cleared_on" class="">cleared_on</label>
+                    <input type="date" id="cleared_on" name="cleared_on" class="form-control">
+                    
+                </div>
+                </div>
+              <!--Grid row-->
+
+              
+              
+            </div>
+          </form>
+
+          <div class="text-center text-md-left">
+              <a class="btn btn-primary" onclick="document.getElementById('outstanding-form').submit();">Send</a>
+          </div>
+          </div>
+          <div class="status"></div>
+      </div>
+      <!--Grid column-->
+
+     
+     
+
+  </div>
+
+</section>
+<!--Section: Contact v.2-->
+{% endblock %}

@@ -8,5 +8,6 @@ urlpatterns = [
     path('orgregister/' ,views.orgreg, name='orgreg'),
     path('portfolio/' ,views.portfolio, name='portfolio'),
 	path('custregister/' ,views.custreg, name='custreg'),
-	  
+	path('outstanding/',views.outstanding, name='outstanding'),
+
 ]
