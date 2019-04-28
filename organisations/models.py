@@ -7,7 +7,7 @@ class Organisations(models.Model):
 	orgsendername = models.CharField(max_length=50)
 	orgsenderphn =  models.CharField(max_length=13)
 	orgpassword =  models.CharField(max_length=13)
-	orglogo = models.CharField(max_length=150)
+	orglogo = models.ImageField(max_length=150)
 	class Meta:
 		db_table='organisations'
 

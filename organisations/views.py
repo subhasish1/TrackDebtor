@@ -23,14 +23,14 @@ def orgreg(request):
         org_sender_email=request.POST.get('orgsenderemail')
         org_sender_phn=request.POST.get('orgsenderphn')
         org_password=request.POST.get('orgpassword')
-        org_logo=request.POST.get('orglogo')
+        orglogo=request.POST.get('orglogo')
         
-        c=Organisations(orgname = org_name,orgemail = org_email,orgcc=org_cc,orgsendername=org_sender_email,orgsenderphn=org_sender_phn,orgpassword=org_password)
+        c=Organisations(orgname = org_name,orgemail = org_email,orgcc=org_cc,orgsendername=org_sender_email,orgsenderphn=org_sender_phn,orgpassword=org_password,orglogo=orglogo)
         c.save()
-        handle_uploaded_file1(request.FILES['org_logo'])
-        return HttpResponse(request.FILES['org_logo'].org_name)
+        handle_uploaded_file1(request.FILES['orglogo'])
+        return HttpResponse(request.FILES['orglogo'].org_name)
         #return render(request,'organisations/orgRegister.html')
-        return HttpResponse(request.FILES['picture'].name)
+       # return HttpResponse(request.FILES['picture'].name)
     else:
         return render(request,'organisations/orgRegister.html')
 def custreg(request):
