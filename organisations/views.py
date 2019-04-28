@@ -1,13 +1,19 @@
 from django.shortcuts import render
 from django.conf.urls.static import static
 from .models import Organisations , Customer,Outstanding
-
+from django.http import HttpResponse
 # Create your views here.
 
 def index(request):
     return render(request,'organisations/index.html')
 def portfolio(request):
     return render(request,'organisations/portfolio.html')
+
+def handle_uploaded_file1(f):  
+    with open('organisations/static/organisations/images/'+f.name, 'wb+') as destination:  
+        for chunk in f.chunks():  
+            destination.write(chunk)  
+
 def orgreg(request):
 	if request.method == 'POST':
 		
@@ -20,7 +26,9 @@ def orgreg(request):
 		
 		c = Organisations(orgname = org_name,orgemail = org_email, orgcc=org_cc,orgsendername=org_sender_email, orgsenderphn=org_sender_phn, orgpassword=org_password)
 		c.save()
-		return render(request,'organisations/orgRegister.html')
+		handle_uploaded_file1(request.FILES['picture'])
+        return HttpResponse(request.FILES['picture'].name)
+		#return render(request,'organisations/orgRegister.html')
 	else:
 
 		return render(request,'organisations/orgRegister.html')
