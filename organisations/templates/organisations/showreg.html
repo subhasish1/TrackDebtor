@@ -1,0 +1,45 @@
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+    <meta charset="UTF-8">  
+    <title>Employee Records</title>  
+     {% load staticfiles %}  
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"/>  
+</head>  
+<body>  
+<table class="table table-striped table-bordered table-sm">  
+    <thead class="thead-dark">  
+    <tr>  
+        <th>ORG NAME</th>  
+        <th>EMAIL</th>  
+        <th>ORGCC</th>  
+        <th>ORGSENDERMAIL</th>  
+        <th>ORGSENDERPHN</th>  
+        <th>ORGPASSWORD</th>
+        <th>ORGLOGO</th>
+    </tr>  
+    </thead>  
+    <tbody>  
+{% for c in org %}  
+    <tr>  
+        <td>{{ c.orgname }}</td>  
+        <td>{{ c.orgemail }}</td>  
+        <td>{{ c.orgcc }}</td>  
+        <td>{{ c.orgsenderemail}}</td>
+        <td>{{ c.orgsenderphn}}</td>
+        <td>{{ c.orgpassword}}</td>
+        <td>{{ c.orglogo}}</td>
+    <td><a href="{% static 'organisations/images/' %}{{ c.orglogo }}">DD</a></td>  
+        <td>  
+            
+        </td>  
+    </tr>  
+{% endfor %}  
+    </tbody>  
+</table>  
+<br>  
+<br>  
+ 
+ 
+</body>  
+</html>  
