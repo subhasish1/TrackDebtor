@@ -82,7 +82,7 @@ def email(request):
     subject = 'Thank you for registering to our site'
     message = 'it means a world to us'
     email_form = settings.EMAIL_HOST_USER
-    recipient_list = ['bananirana41@gmail.com',]
+    recipient_list = ['bananirana41@gmail.com','subhasishk149@gmail.com']
     send_mail(subject,message,email_form,recipient_list)
     return HttpResponse("ok")
 
