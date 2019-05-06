@@ -6,6 +6,7 @@ from django.core.mail import send_mail
 from django.conf import settings
 from organisations.forms import CustomerForm
 from apscheduler.schedulers.background import BackgroundScheduler
+from django import sqlite3
 
 
 def index(request):
@@ -37,16 +38,24 @@ def orgreg(request):
        # return HttpResponse(request.FILES['picture'].name)
     else:
         return render(request,'organisations/orgRegister.html')
-#def login(request):
- #       if request.method == 'POST':
-  #              org_name=request.POST.get('orgname')
-   #             org_email=request.POST.get('orgemail')
-    #    
-     #   
-      #  else:
-       #         return render(request,'organisations/orgRegister.html')
-        #        orga = Organisations.objects.get(orgname="")
-         #  return render(request,"organisations/login.html",)
+def orglogin(request):
+        if request.method == 'POST':
+                
+                org_email=request.POST.get('orgemail')
+                org_password=request.POST.get('orgpass')
+                db = sqlite3.connect('home/ayushruia/Documents/environments/my_env/PersonalWebsite/db.sqlite3')
+                c = db.cursor()
+                c.execute('SELECT * FROM organisations WHERE orgemail = ? AND orgpassword = ?', (org_email, org_password))
+                if c.fetchall():
+                    return render(request,'organisations/orgRegister.html')
+                else:
+                    print('Login failed')
+                    return render(request,"organisations/orglogin.html")
+                
+        else:
+                
+            return render(request,"organisations/orglogin.html")
+
 def show(request):
     orga= Organisations.objects.all()
     return render(request,"organisations/showreg.html",{'org':orga})
@@ -127,7 +136,7 @@ scheduler = BackgroundScheduler()
 job = None
 def start_job():
     global job
-    job = scheduler.add_job(tick, 'interval', seconds=3600)
+    job = scheduler.add_job(email, 'interval', seconds=3600)
     try:
         scheduler.start()
     except:
