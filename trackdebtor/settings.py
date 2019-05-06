@@ -34,6 +34,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'django_apscheduler',
     'organisations.apps.OrganisationsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -128,3 +129,5 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587 
 EMAIL_HOST_USER = 'onlyme.karmakar@gmail.com'
 EMAIL_HOST_PASSWORD = 'subhasishlove1@'
+
+APSCHEDULER_DATETIME_FORMAT =  "N j, Y, f:s a"  # Default

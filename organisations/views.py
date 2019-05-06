@@ -5,7 +5,8 @@ from django.http import HttpResponse
 from django.core.mail import send_mail
 from django.conf import settings
 from organisations.forms import CustomerForm
-# Create your views here.
+from apscheduler.schedulers.background import BackgroundScheduler
+
 
 def index(request):
     return render(request,'organisations/index.html')
@@ -122,3 +123,12 @@ def email(request):
     send_mail(subject,message,email_form,recipient_list)
     return HttpResponse("ok")
 
+scheduler = BackgroundScheduler()
+job = None
+def start_job():
+    global job
+    job = scheduler.add_job(tick, 'interval', seconds=3600)
+    try:
+        scheduler.start()
+    except:
+        pass
