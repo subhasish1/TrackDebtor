@@ -1,0 +1,62 @@
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+    <meta charset="UTF-8">  
+    <title>Hello, world!</title>  
+    {% load staticfiles %}  
+    
+</head>  
+<body>  
+<form method="POST" class="post-form" action="/updatecust/{{customer.id}}">  
+        {% csrf_token %}  
+    <div class="container">  
+<br>  
+    <div class="form-group row">  
+    <label class="col-sm-1 col-form-label"></label>  
+    <div class="col-sm-4">  
+    <h2 class="h1-responsive font-weight-bold text-center my-4">Update Details</h2>  
+    </div>  
+  </div>  
+    <div class="form-group row">  
+    <label class="col-sm-2 col-form-label">Organisation Id:</label>  
+    <div class="col-sm-4">  
+        <input type="text" name="orgid" id="orgid" required maxlength="20" value="{{ customer.orgid}}"/>  
+    </div>  
+  </div>  
+  <div class="form-group row">  
+    <label class="col-sm-2 col-form-label">Name:</label>  
+    <div class="col-sm-4">  
+        <input type="text" name="custname" id="custname" required maxlength="100" value="{{ customer.custname }}" />  
+    </div>  
+  </div>  
+    <div class="form-group row">  
+    <label class="col-sm-2 col-form-label">Email:</label>  
+    <div class="col-sm-4">  
+        <input type="email" name="custemail" id="custemail" required maxlength="254" value="{{ customer.custemail }}" />  
+    </div>  
+  </div>  
+    
+  <div class="form-group row">  
+      <label class="col-sm-2 col-form-label">Phone:</label>  
+      <div class="col-sm-4">  
+          <input type="text" name="custphn" id="custphn" required maxlength="15" value="{{ customer.custphn }}" />  
+      </div>  
+    </div>
+
+    <div class="form-group row">  
+        <label class="col-sm-2 col-form-label">Dectonate:</label>  
+        <div class="col-sm-4">  
+            <input type="text" name="custstatus" id="dectonate" required maxlength="15" value="{{ customer.custstatus }}" />  
+        </div>  
+      </div>
+  
+    <div class="form-group row">  
+    <label class="col-sm-1 col-form-label"></label>  
+    <div class="col-sm-4">  
+    <button type="submit" class="btn btn-success">Update</button>  
+    </div>  
+  </div>  
+    </div>  
+</form>  
+</body>  
+</html>  

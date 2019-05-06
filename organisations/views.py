@@ -1,9 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.conf.urls.static import static
 from .models import Organisations , Customer,Outstanding
 from django.http import HttpResponse
 from django.core.mail import send_mail
 from django.conf import settings
+from organisations.forms import CustomerForm
 # Create your views here.
 
 def index(request):
@@ -36,15 +37,15 @@ def orgreg(request):
     else:
         return render(request,'organisations/orgRegister.html')
 #def login(request):
-       # if request.method == 'POST':
-               # org_name=request.POST.get('orgname')
-               # org_email=request.POST.get('orgemail')
-        
-        
-       # else:
-               # return render(request,'organisations/orgRegister.html')
-               # orga = Organisations.objects.get(orgname="")
-        #   return render(request,"organisations/login.html",)
+ #       if request.method == 'POST':
+  #              org_name=request.POST.get('orgname')
+   #             org_email=request.POST.get('orgemail')
+    #    
+     #   
+      #  else:
+       #         return render(request,'organisations/orgRegister.html')
+        #        orga = Organisations.objects.get(orgname="")
+         #  return render(request,"organisations/login.html",)
 def show(request):
     orga= Organisations.objects.all()
     return render(request,"organisations/showreg.html",{'org':orga})
@@ -62,6 +63,41 @@ def custreg(request):
         return render(request,'organisations/orgRegister.html')
     else:
         return render(request,'organisations/customer.html')
+   
+        
+def showcust(request):
+    customers = Customer.objects.all()
+    return render(request,"organisations/showcust.html",{'customers':customers})
+
+
+
+
+def editcust(request, id):
+        customer = Customer.objects.get(id=id)
+        if request.method == "POST":
+                org_id=request.POST.get('orgid')
+                cust_name=request.POST.get('custname')
+                cust_email=request.POST.get('custemail')
+                cust_phn=request.POST.get('custphone')
+                cust_status=request.POST.get('custstatus')
+        
+                customer = Customer(orgid=org_id, custname=cust_name, custemail=cust_email,custphn=cust_phn,custstatus=cust_status )
+                customer.save()
+
+        return render(request,'organisations/editcust.html',{'customer': customer})
+
+def updatecust(request, id):
+        customer = Customer.objects.get(id=id)
+        form = CustomerForm(request.POST, instance = customer)  
+        form.save()  
+        return redirect("/showcust") 
+        
+
+def destroy(request,id):
+        customer = Customer.objects.get(id=id)
+        customer.delete()
+        return redirect("/showcust/")
+
 def outstanding(request):
     if request.method == 'POST':
         

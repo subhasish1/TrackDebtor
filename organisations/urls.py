@@ -12,4 +12,9 @@ urlpatterns = [
     path('mail/',views.email, name='mail'),
     path('display/',views.show, name='show'),
    # path('login/',views.login, name='login'),
+   
+    path('showcust/',views.showcust, name='showcust'),
+    path('editcust/<int:id>',views.editcust, name='editcust'),
+    path('updatecust/<int:id>',views.updatecust, name='updatecust'),
+    path('deletecust/<int:id>',views.destroy, name='destroy'),
 ]
