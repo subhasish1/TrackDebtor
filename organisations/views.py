@@ -5,7 +5,9 @@ from django.http import HttpResponse
 from django.core.mail import send_mail
 from django.conf import settings
 from organisations.forms import CustomerForm
-# Create your views here.
+from apscheduler.schedulers.background import BackgroundScheduler
+
+
 
 def index(request):
     return render(request,'organisations/index.html')
@@ -36,16 +38,24 @@ def orgreg(request):
        # return HttpResponse(request.FILES['picture'].name)
     else:
         return render(request,'organisations/orgRegister.html')
-#def login(request):
- #       if request.method == 'POST':
-  #              org_name=request.POST.get('orgname')
-   #             org_email=request.POST.get('orgemail')
-    #    
-     #   
-      #  else:
-       #         return render(request,'organisations/orgRegister.html')
-        #        orga = Organisations.objects.get(orgname="")
-         #  return render(request,"organisations/login.html",)
+def orglogin(request):
+        if request.method == 'POST':
+                
+                org_email=request.POST.get('orgemail')
+                org_password=request.POST.get('orgpass')
+                db = sqlite3.connect('home/ayushruia/Documents/environments/my_env/PersonalWebsite/db.sqlite3')
+                c = db.cursor()
+                c.execute('SELECT * FROM organisations WHERE orgemail = ? AND orgpassword = ?', (org_email, org_password))
+                if c.fetchall():
+                    return render(request,'organisations/orgRegister.html')
+                else:
+                    print('Login failed')
+                    return render(request,"organisations/orglogin.html")
+                
+        else:
+                
+            return render(request,"organisations/orglogin.html")
+
 def show(request):
     orga= Organisations.objects.all()
     return render(request,"organisations/showreg.html",{'org':orga})
@@ -116,9 +126,18 @@ def outstanding(request):
         return render(request,'organisations/outstanding.html')
 def email(request):
     subject = 'Thank you for registering to our site'
-    message = 'it means a world to us'
+    message = 'WElcome to trsck Debtors'
     email_form = settings.EMAIL_HOST_USER
-    recipient_list = ['bananirana41@gmail.com','subhasishk149@gmail.com']
+    recipient_list = ['dipakmca11132@gmail.com','subhasishk149@gmail.com']
     send_mail(subject,message,email_form,recipient_list)
     return HttpResponse("ok")
 
+scheduler = BackgroundScheduler()
+job = None
+def start_job():
+    global job
+    job = scheduler.add_job(email, 'interval', seconds=3600)
+    try:
+        scheduler.start()
+    except:
+        pass
