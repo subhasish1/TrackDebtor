@@ -6,7 +6,7 @@ from django.core.mail import send_mail
 from django.conf import settings
 from organisations.forms import CustomerForm
 from apscheduler.schedulers.background import BackgroundScheduler
-from django import sqlite3
+
 
 
 def index(request):
@@ -126,9 +126,9 @@ def outstanding(request):
         return render(request,'organisations/outstanding.html')
 def email(request):
     subject = 'Thank you for registering to our site'
-    message = 'it means a world to us'
+    message = 'WElcome to trsck Debtors'
     email_form = settings.EMAIL_HOST_USER
-    recipient_list = ['bananirana41@gmail.com','subhasishk149@gmail.com']
+    recipient_list = ['dipakmca11132@gmail.com','subhasishk149@gmail.com']
     send_mail(subject,message,email_form,recipient_list)
     return HttpResponse("ok")
 
