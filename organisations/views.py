@@ -34,8 +34,8 @@ def orgreg(request):
         c.save()
         handle_uploaded_file1(request.FILES['orglogo'])
         return HttpResponse(request.FILES['orglogo'].name)
-        #return render(request,'organisations/orgRegister.html')
-       # return HttpResponse(request.FILES['picture'].name)
+        return render(request,'organisations/orgRegister.html')
+        return HttpResponse(request.FILES['picture'].name)
     else:
         return render(request,'organisations/orgRegister.html')
 def orglogin(request):
@@ -43,10 +43,12 @@ def orglogin(request):
                 
                 org_email=request.POST.get('orgemail')
                 org_password=request.POST.get('orgpass')
-                db = sqlite3.connect('home/ayushruia/Documents/environments/my_env/PersonalWebsite/db.sqlite3')
-                c = db.cursor()
-                c.execute('SELECT * FROM organisations WHERE orgemail = ? AND orgpassword = ?', (org_email, org_password))
-                if c.fetchall():
+                k=Organisations.objects.filter(orgemail=org_email, orgpassword=org_password)
+                #db = sqlite3.connect('db.sqlite3')
+                #c = db.cursor()
+                #c.execute('SELECT * FROM organisations WHERE orgemail = ? AND orgpassword = ?', (org_email, org_password))
+                #if c.fetchall():
+                if k.exists():
                     return render(request,'organisations/orgRegister.html')
                 else:
                     print('Login failed')
@@ -124,19 +126,30 @@ def outstanding(request):
         return render(request,'organisations/outstanding.html')
     else:
         return render(request,'organisations/outstanding.html')
+from django.db import connection
 def email(request):
+    #list=Outstanding.objects.filter(due_amt > 0)
+    elist=[]
+    #for p in Customer.objects.raw("select c.custemail from customer c,outstanding o where c.id=o.custid and o.due_amt > 0 "):
+        #elist.append(p)
+    c = connection.cursor()
+    #c.execute('SELECT * FROM customer')
+    c.execute("select c.custemail from customer c,outstanding o where c.id=o.custid ")
+    x=c.fetchall()
+    for k in x:
+        elist.append(k[0])
     subject = 'Thank you for registering to our site'
-    message = 'WElcome to trsck Debtors'
-    email_form = settings.EMAIL_HOST_USER
-    recipient_list = ['dipakmca11132@gmail.com','subhasishk149@gmail.com']
-    send_mail(subject,message,email_form,recipient_list)
-    return HttpResponse("ok")
+    message = 'WElcome to track Debtors'
+    #email_form = settings.EMAIL_HOST_USER
+    #recipient_list = ['list']
+    #send_mail(subject,message,email_form,recipient_list)
+    return HttpResponse(elist[0])
 
 scheduler = BackgroundScheduler()
 job = None
 def start_job():
     global job
-    job = scheduler.add_job(email, 'interval', seconds=3600)
+    job = scheduler.add_job(email, 'interval', seconds=60)
     try:
         scheduler.start()
     except:
