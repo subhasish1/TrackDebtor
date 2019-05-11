@@ -154,7 +154,7 @@ def start_job():
 def showdebtors(request):
     co = connection.cursor()     
     co.execute("select c.custname,o.bill_no,o.bill_amt,o.due_amt,o.bill_date,o.cleared_on,o.creditperiod from customer c, outstanding o where c.id=o.custid and due_amt > 0")
-    y=co.fetchall()
-    debtors = Outstanding.objects.all()
-    return render(request,"organisations/showdebt.html",{'debt':debtors})
-    return HttpResponse(y)
+    debtors=co.fetchall()
+    print (debtors)
+    return render(request,"organisations/showdebt.html",{'debtors': debtors})
+   

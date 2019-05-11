@@ -2,16 +2,18 @@
 <html lang="en">  
 <head>  
     <meta charset="UTF-8">  
-    <title>Debtors Records</title>  
+    <title>Customers Records</title>  
      {% load staticfiles %}  
     <link rel="stylesheet" href="{% static 'css/style.css' %}"/>  
 </head>  
 <body>  
+
+<section class="mb-4">
+ 
 <table class="table table-striped table-bordered table-sm">  
     <thead class="thead-dark">  
     <tr>  
-        <th>ORG Id</th>  
-        <th>CUST ID</th>
+        
         <th>CUST NAME</th>  
         <th>BILL NO.</th>  
         <th>BILL AMT</th>  
@@ -22,27 +24,20 @@
     </tr>  
     </thead>  
     <tbody>  
-{% for y in debt %}  
+{% for debtor in debtors %}  
     <tr>  
-        <td>{{ y.orgid }}</td>  
-        <td>{{ y.custid }}</td>  
-        <td>{{ y.custname }}</td>
-        <td>{{ y.bill_no }}</td>  
-        <td>{{ y.bill_amt }}</td>
-        <td>{{ y.due_amt }}</td>
-        <td>{{ y.bill_date}}</td>
-        <td>{{ y.cleared_on }}</td>
-        <td>{{ y.creditperiod}}</td>
-        <td> 
-            
-        </td>  
+        <td>{{ debtor.custname }}</td>   
+        <td>{{ debtor.bill_no }}</td>  
+        <td>{{ debtor.bill_amt }}</td>
+        <td>{{ debtor.due_amt }}</td>
+        <td>{{ debtor.bill_date}}</td>
+        <td>{{ debtor.cleared_on }}</td>
+        <td>{{ debtor.creditperiod}}</td> 
     </tr>  
 {% endfor %}  
     </tbody>  
 </table>  
-<br>  
-<br>  
- 
- 
+</section>
+
 </body>  
 </html>  
