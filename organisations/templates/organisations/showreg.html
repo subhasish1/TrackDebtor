@@ -2,7 +2,7 @@
 <html lang="en">  
 <head>  
     <meta charset="UTF-8">  
-    <title>Employee Records</title>  
+    <title>Organisation Records</title>  
      {% load staticfiles %}  
     <link rel="stylesheet" href="{% static 'css/style.css' %}"/>  
 </head>  
@@ -20,16 +20,16 @@
     </tr>  
     </thead>  
     <tbody>  
-{% for c in org %}  
+{% for p in org %}  
     <tr>  
-        <td>{{ c.orgname }}</td>  
-        <td>{{ c.orgemail }}</td>  
-        <td>{{ c.orgcc }}</td>  
-        <td>{{ c.orgsenderemail}}</td>
-        <td>{{ c.orgsenderphn}}</td>
-        <td>{{ c.orgpassword}}</td>
-        <td>{{ c.orglogo}}</td>
-    <td><a href="{% static 'organisations/images/' %}{{ c.orglogo }}">DD</a></td>  
+        <td>{{ p.orgname }}</td>  
+        <td>{{ p.orgemail }}</td>  
+        <td>{{ p.orgcc }}</td>  
+        <td>{{ p.orgsendermail}}</td>
+        <td>{{ p.orgsenderphn}}</td>
+        <td>{{ p.orgpassword}}</td>
+        <td>{{ p.orglogo}}</td>
+    <td><a href="{% static 'organisations/images/' %}{{ p.orglogo }}">DD</a></td>  
         <td>  
             
         </td>  

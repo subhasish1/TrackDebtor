@@ -1,0 +1,49 @@
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+    <meta charset="UTF-8">  
+    <title>Customers Records</title>  
+     {% load staticfiles %}  
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"/>  
+</head>  
+<body>  
+
+<section class="mb-4">
+ 
+<table class="table table-striped table-bordered table-sm">  
+    <thead class="thead-dark">  
+    <tr>  
+        
+        <th>CUST NAME</th>  
+        <th>BILL NO.</th>  
+        <th>BILL AMT</th>  
+        <th>DUE AMT</th> 
+        <th>BILL DATE</th> 
+        <th>CLEARED ON</th>
+        <th>CREDIT PERIOD</th>
+    </tr>  
+    </thead>  
+    <tbody>  
+
+
+
+{% for c in debtors %}  
+    <tr>  
+        <td>{{ c.id }}</td>
+        <td>{{ c.custname }}</td>
+        <td>{{ c.bill_no }}</td>   
+        <td>{{ c.bill_amt }}</td> 
+        <td>{{ c.due_amt}}</td> 
+        <td>{{ c.bill_date }}</td>
+        <td>{{ c.cleared_on }}</td>
+        <td>{{ c.creditperiod}}</td>
+        <td><a href="/mail/{{ c.id }}"><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-pencil" aria-hidden="true">Send Mail
+            </span></button></a></td>
+    </tr>  
+{% endfor %}  
+    </tbody>  
+</table>  
+</section>
+
+</body>  
+</html>  

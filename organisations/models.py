@@ -28,6 +28,7 @@ class Outstanding(models.Model):
 	due_amt = models.CharField(max_length=10)
 	bill_date = models.DateField()
 	cleared_on=models.DateField()
+	creditperiod = models.CharField(max_length=5)
 	
 	class Meta:
 		db_table='outstanding'

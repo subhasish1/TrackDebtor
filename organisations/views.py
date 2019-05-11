@@ -34,8 +34,8 @@ def orgreg(request):
         c.save()
         handle_uploaded_file1(request.FILES['orglogo'])
         return HttpResponse(request.FILES['orglogo'].name)
-        return render(request,'organisations/orgRegister.html')
-        return HttpResponse(request.FILES['picture'].name)
+        #return render(request,'organisations/orgRegister.html')
+        #return HttpResponse(request.FILES['picture'].name)
     else:
         return render(request,'organisations/orgRegister.html')
 def orglogin(request):
@@ -44,10 +44,6 @@ def orglogin(request):
                 org_email=request.POST.get('orgemail')
                 org_password=request.POST.get('orgpass')
                 k=Organisations.objects.filter(orgemail=org_email, orgpassword=org_password)
-                #db = sqlite3.connect('db.sqlite3')
-                #c = db.cursor()
-                #c.execute('SELECT * FROM organisations WHERE orgemail = ? AND orgpassword = ?', (org_email, org_password))
-                #if c.fetchall():
                 if k.exists():
                     return render(request,'organisations/orgRegister.html')
                 else:
@@ -120,30 +116,36 @@ def outstanding(request):
         due_amt=request.POST.get('due_amt')
         bill_date=request.POST.get('bill_date')
         cleared_on=request.POST.get('cleared_on')
+        credit_period = request.POST.get('creditperiod')
 
-        p = Outstanding(orgid=org_id, custid=cust_id, bill_no=bill_no, bill_amt=bill_amt, due_amt=due_amt, bill_date=bill_date, cleared_on=cleared_on )
+        p = Outstanding(orgid=org_id, custid=cust_id, bill_no=bill_no, bill_amt=bill_amt, due_amt=due_amt, bill_date=bill_date, cleared_on=cleared_on,creditperiod=credit_period )
         p.save()
         return render(request,'organisations/outstanding.html')
     else:
         return render(request,'organisations/outstanding.html')
 from django.db import connection
-def email(request):
+def email(request,id):
+    cust = Customer.objects.get(id=id)
+    cust_email = cust.custemail
+    print(cust_email)
+
+
     #list=Outstanding.objects.filter(due_amt > 0)
-    elist=[]
+    #elist=[]
     #for p in Customer.objects.raw("select c.custemail from customer c,outstanding o where c.id=o.custid and o.due_amt > 0 "):
         #elist.append(p)
-    c = connection.cursor()
+    #c = connection.cursor()
     #c.execute('SELECT * FROM customer')
-    c.execute("select c.custemail from customer c,outstanding o where c.id=o.custid ")
-    x=c.fetchall()
-    for k in x:
-        elist.append(k[0])
+    #c.execute("select c.custemail from customer c,outstanding o where c.id=o.custid and due_amt > 0")
+    #x=c.fetchall()
+    #for k in x:
+      #  elist.append(k)
     subject = 'Thank you for registering to our site'
     message = 'WElcome to track Debtors'
-    #email_form = settings.EMAIL_HOST_USER
-    #recipient_list = ['list']
-    #send_mail(subject,message,email_form,recipient_list)
-    return HttpResponse(elist[0])
+    email_form = settings.EMAIL_HOST_USER
+    recipient_list = [cust_email]
+    send_mail(subject,message,email_form,recipient_list)
+    return HttpResponse(okk)
 
 scheduler = BackgroundScheduler()
 job = None
@@ -151,6 +153,18 @@ def start_job():
     global job
     job = scheduler.add_job(email, 'interval', seconds=60)
     try:
-        scheduler.start()
+        scheduler.start() 
     except:
         pass
+def showdebtors(request):
+    co = connection.cursor()     
+    co.execute("select c.custname,o.bill_no,o.bill_amt,o.due_amt,o.bill_date,o.cleared_on,o.creditperiod from customer c, outstanding o where c.id=o.custid and due_amt > 0")
+    debtors=co.fetchall()
+    print (debtors)
+    #data = Customer.objects.get(id=14)
+    #print (data)
+    data2 = Customer.objects.raw('select c.id as id ,c.id,c.custname,o.bill_no,o.bill_amt,o.due_amt,o.bill_date,o.cleared_on,o.creditperiod from customer c, outstanding o where c.id=o.custid and due_amt > 0')
+    print (data2)
+
+    return render(request,"organisations/showdebt.html",{'debtors': data2})
+   
