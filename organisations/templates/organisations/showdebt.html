@@ -24,15 +24,21 @@
     </tr>  
     </thead>  
     <tbody>  
-{% for debtor in debtors %}  
+
+
+
+{% for c in debtors %}  
     <tr>  
-        <td>{{ debtor.custname }}</td>   
-        <td>{{ debtor.bill_no }}</td>  
-        <td>{{ debtor.bill_amt }}</td>
-        <td>{{ debtor.due_amt }}</td>
-        <td>{{ debtor.bill_date}}</td>
-        <td>{{ debtor.cleared_on }}</td>
-        <td>{{ debtor.creditperiod}}</td> 
+        <td>{{ c.id }}</td>
+        <td>{{ c.custname }}</td>
+        <td>{{ c.bill_no }}</td>   
+        <td>{{ c.bill_amt }}</td> 
+        <td>{{ c.due_amt}}</td> 
+        <td>{{ c.bill_date }}</td>
+        <td>{{ c.cleared_on }}</td>
+        <td>{{ c.creditperiod}}</td>
+        <td><a href="/mail/{{ c.id }}"><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-pencil" aria-hidden="true">Send Mail
+            </span></button></a></td>
     </tr>  
 {% endfor %}  
     </tbody>  
