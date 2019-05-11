@@ -9,6 +9,7 @@ urlpatterns = [
     path('portfolio/' ,views.portfolio, name='portfolio'),
 	path('custregister/' ,views.custreg, name='custreg'),
 	path('outstanding/',views.outstanding, name='outstanding'),
+    path('debtors/',views.showdebtors, name='showdebtors'),
     path('mail/',views.email, name='mail'),
     path('display/',views.show, name='show'),
     path('orglogin/',views.orglogin, name='orglogin'),
