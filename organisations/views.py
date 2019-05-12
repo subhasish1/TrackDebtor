@@ -6,6 +6,7 @@ from django.core.mail import send_mail
 from django.conf import settings
 from organisations.forms import CustomerForm
 from apscheduler.schedulers.background import BackgroundScheduler
+import sweetify
 
 
 
@@ -44,8 +45,14 @@ def orglogin(request):
                 org_email=request.POST.get('orgemail')
                 org_password=request.POST.get('orgpass')
                 k=Organisations.objects.filter(orgemail=org_email, orgpassword=org_password)
+                #request.session['orgmail'] = "jain"
+                #print(orgmail)
                 if k.exists():
-                    return render(request,'organisations/orgRegister.html')
+                    #sweetify.success(self.request, 'You successfully logged in!')
+                    #request.session['username'] = org_email
+                    orgdata = Organisations.objects.get(orgemail=org_email)
+                    request.session['orgid'] = orgdata.id
+                    return render(request,'organisations/customer.html')
                 else:
                     print('Login failed')
                     return render(request,"organisations/orglogin.html")
@@ -59,16 +66,22 @@ def show(request):
     return render(request,"organisations/showreg.html",{'org':orga})
 
 def custreg(request):
+
     if request.method == 'POST':
-        org_id=request.POST.get('orgid')
-        cust_name=request.POST.get('custname')
-        cust_email=request.POST.get('custemail')
-        cust_phn=request.POST.get('custphone')
-        cust_status=request.POST.get('custstatus')
+        if request.session.has_key('orgid'):
+            
+            org_id=request.session['orgid']
+            print(org_id)
+            cust_name=request.POST.get('custname')
+            cust_email=request.POST.get('custemail')
+            cust_phn=request.POST.get('custphone')
+            cust_status=request.POST.get('custstatus')
         
-        cust = Customer(orgid=org_id, custname=cust_name, custemail=cust_email,custphn=cust_phn,custstatus=cust_status )
-        cust.save()
-        return render(request,'organisations/orgRegister.html')
+            cust = Customer(orgid=org_id, custname=cust_name, custemail=cust_email,custphn=cust_phn,custstatus=cust_status )
+            cust.save()
+            return render(request, 'organisations/customer.html')
+        else:
+            return render(request, 'organisations/orglogin.html')
     else:
         return render(request,'organisations/customer.html')
    
