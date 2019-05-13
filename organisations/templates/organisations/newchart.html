@@ -1,0 +1,30 @@
+<div id="container"></div>
+<script src="https://code.highcharts.com/highcharts.src.js"></script>
+<script>
+  Highcharts.chart('container', {
+      chart: {
+          type: 'column'
+      },
+      title: {
+          text: 'Debtors by date'
+      },
+      xAxis: {
+          categories: [
+            {% for entry in dataset %}'{{ entry.bill_date }} '{% if not forloop.last %}, {% endif %}{% endfor %}
+          ]
+      },
+      series: [{
+          name: 'Bill Amt',
+          data: [
+            {% for entry in dataset %}{{ entry.bill_amt }}{% if not forloop.last %}, {% endif %}{% endfor %}
+          ],
+          color: 'green'
+      }, {
+          name: 'Due Amt',
+          data: [
+            {% for entry in dataset %}{{ entry.due_amt }}{% if not forloop.last %}, {% endif %}{% endfor %}
+          ],
+          color: 'red'
+      }]
+  });
+</script>

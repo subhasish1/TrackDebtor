@@ -10,7 +10,7 @@ urlpatterns = [
 	path('custregister/' ,views.custreg, name='custreg'),
 	path('outstanding/',views.outstanding, name='outstanding'),
     path('debtors/',views.showdebtors, name='showdebtors'),
-    path('mail/<int:id>',views.email, name='mail'),
+    path('mail/<int:id>',views.email, name='email'),
     path('display/',views.show, name='show'),
     path('orglogin/',views.orglogin, name='orglogin'),
     path('showcust/',views.showcust, name='showcust'),
@@ -18,4 +18,6 @@ urlpatterns = [
     path('updatecust/<int:id>',views.updatecust, name='updatecust'),
     path('deletecust/<int:id>',views.destroy, name='destroy'),
     path('start_job',views.start_job, name='start_job'),
+    path('new',views.newchart,name='demo'),
 ]
+

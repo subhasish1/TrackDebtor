@@ -6,7 +6,11 @@ from django.core.mail import send_mail
 from django.conf import settings
 from organisations.forms import CustomerForm
 from apscheduler.schedulers.background import BackgroundScheduler
+<<<<<<< HEAD
 import sweetify
+=======
+from django.db.models import Count, Q
+>>>>>>> 0e74b8e2590a34a80fb82175d5afa6408be8ec28
 
 
 
@@ -180,4 +184,6 @@ def showdebtors(request):
     print (data2)
 
     return render(request,"organisations/showdebt.html",{'debtors': data2})
-   
+def newchart(request):
+    dataset =Outstanding.objects.raw('select 1 as id, o.id, o.bill_date,o.bill_amt,o.due_amt from outstanding o')
+    return render(request, 'organisations/newchart.html', {'dataset': dataset})

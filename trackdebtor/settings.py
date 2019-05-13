@@ -133,3 +133,4 @@ EMAIL_HOST_USER = 'onlyme.karmakar@gmail.com'
 EMAIL_HOST_PASSWORD = 'subhasishlove1@'
 
 APSCHEDULER_DATETIME_FORMAT =  "N j, Y, f:s a"  # Default
+
