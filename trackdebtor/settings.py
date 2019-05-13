@@ -30,7 +30,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-SWEETIFY_SWEETALERT_LIBRARY = 'sweetalert2'
+#SWEETIFY_SWEETALERT_LIBRARY = 'sweetalert2'
 
 # Application definition
 
@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'sweetify',
 ]
 
 MIDDLEWARE = [
