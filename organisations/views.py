@@ -70,7 +70,8 @@ def orglogin(request):
                     #request.session['username'] = org_email
                     orgdata = Organisations.objects.get(orgemail=org_email)
                     request.session['orgid'] = orgdata.id
-                    return render(request,'organisations/customer.html')
+                    request.session['logged_in'] = True
+                    return render(request,'organisations/dashboard_main_content.html',{'orgdata' : orgdata })
                 else:
                     print('Login failed')
                     return render(request,"organisations/orglogin.html")   
@@ -82,11 +83,12 @@ def show(request):
     return render(request,"organisations/showreg.html",{'org':orga})
 
 def custreg(request):
-
-    if request.method == 'POST':
-        if request.session.has_key('orgid'):
+    if request.session.has_key('orgid'):
+    
+        if request.method == 'POST':
             
             org_id=request.session['orgid']
+            orgdata = Organisations.objects.filter(orgid=org_id)
             print(org_id)
             cust_name=request.POST.get('custname')
             cust_email=request.POST.get('custemail')
@@ -95,11 +97,12 @@ def custreg(request):
         
             cust = Customer(orgid=org_id, custname=cust_name, custemail=cust_email,custphn=cust_phn,custstatus=cust_status )
             cust.save()
-            return render(request, 'organisations/customer.html')
+            messages.success(request, 'Profile details updated.')
+            return render(request, 'organisations/customer.html',{'orgdata' : orgdata})
         else:
             return render(request, 'organisations/orglogin.html')
     else:
-        return render(request,'organisations/customer.html')
+        return render(request,'organisations/orglogin.html')
    
         
 def showcust(request):

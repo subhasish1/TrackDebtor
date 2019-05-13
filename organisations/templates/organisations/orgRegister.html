@@ -129,14 +129,127 @@
             </div>
             
               
+            <div class="text-center text-md-left">
+                  <input type="submit" value="save" name="Save" class="btn btn-primary"></div> 
+                  <span id="success" class="bg-success font-weight-bold"> </span>
+                  </form>
+
+            </div>
+
+            <script type="text/javascript">
+              function validation(){
+                var Name = document.getElementById('name').value;
+                var Email = document.getElementById('email').value;
+                var CC = document.getElementById('cc').value;
+                var Sender_Email = document.getElementById('sender_email').value;
+                var Sender_Phone = document.getElementById('sender_phn').value;
+                var Org_Password = document.getElementById('org_password').value;
+                
+                
+                
+
+              if(Name == ""){
+                document.getElementById('names').innerHTML="**Please fill the Name field";
+                return false;
+              }
+              if(!isNaN(Name)){
+                document.getElementById('names').innerHTML="**Only characters are allowed";
+                return false;
+              }
+
+
+
+              if(Email == ""){
+                document.getElementById('emails').innerHTML="**Please fill the Email field";
+                return false;
+              }
+              if(Email.indexOf('@') <= 0){
+                document.getElementById('emails').innerHTML="**@ Invalid position";
+                return false;
+              }
+              if((Email.charAt(Email.length-4)!='.') && (Email.charAt(Email.length-3)!='.')){
+                document.getElementById('emails').innerHTML="**. Invalid position";
+                return false;
+              }
+
+
+              if(CC == ""){
+                document.getElementById('ccs').innerHTML="**Please fill the CC field";
+                return false;
+              }
+              if(CC.indexOf('@') <= 0){
+                document.getElementById('ccs').innerHTML="**@ Invalid position";
+                return false;
+              }
+              if((CC.charAt(CC.length-4)!='.') && (CC.charAt(CC.length-3)!='.')){
+                document.getElementById('ccs').innerHTML="**. Invalid position";
+                return false;
+              }
+
+
+              if(Sender_Email == ""){
+                document.getElementById('senderemails').innerHTML="**Please fill the Sender Email field";
+                return false;
+              }
+              if(Sender_Email.indexOf('@') <= 0){
+                document.getElementById('senderemails').innerHTML="**@ Invalid position";
+                return false;
+              }
+              if((Sender_Email.charAt(Sender_Email.length-4)!='.') && (Sender_Email.charAt(Sender_Email.length-3)!='.')){
+                document.getElementById('senderemails').innerHTML="**. Invalid position";
+                return false;
+              }
+
+
+
+              if( Sender_Phone == ""){
+                document.getElementById('senderphns').innerHTML="**Please fill the Sender Phone field";
+                return false;
+              }
+              if(isNaN( Sender_Phone)){
+              document.getElementById('senderphns').innerHTML="**Only digits are allowed";
+                return false;
+              }
+              if( Sender_Phone.length!=10){
+                document.getElementById('senderphns').innerHTML="**It must be 10 digits number";
+                return false;
+              }
+
+
+
+              if(Org_Password == ""){
+                document.getElementById('passwords').innerHTML="**Please fill the Org Password field";
+                return false;
+              }
+              if(Org_Password.length <= 4) || (Org_Password.length > 10)){
+                document.getElementById('passwords').innerHTML="**Password length must be betwwen 4 and 10";
+                return false;
+              }
+
+
+             
+
+
+              if(Name!="" && Email!="" && CC!="" && Sender_Email!="" && Sender_Phone!=""  && Org_Password!=""  ){
+                document.getElementById('success').innerHTML="You have successfully registered!!"
+                window.location('http://localhost:8000/orgregister//');
+              }
+
+
+                
+                
+                }
+
+                </script>
+            
+              
               
 
-          </form>
+          
 
-          <div class="text-center text-md-left">
-              <a class="btn btn-primary" onclick="document.getElementById('contact-form').submit();">Send</a>
+          
           </div>
-          </div>
+          
           <div class="status"></div>
       </div>
       <!--Grid column-->

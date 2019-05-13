@@ -1,7 +1,9 @@
-{% extends 'organisations/base.html' %}
+{% extends 'organisations/dashboard.html' %}
 
-{% block content %}
+{% block content2 %}
   <!--Section: Contact v.2-->
+  welcome {{ request.session.orgid }}
+  {% if request.session.logged_in %}
   <section class="mb-4">
 
   <!--Section heading-->
@@ -9,17 +11,26 @@
   <!--Section description-->
   
 <div class="container">
+  {% if messages %}
+  <div class=row>
+      <div class='col-sm-6 col-sm-offset-3'>
+    
+        {% for message in messages %}
+        <p {% if message.tags='success' %} class="alert alert-success"{% endif %}>{{ message }}</p>
+        {% endfor %}
+        
+        
+      </div>
+   </div>   
+{% endif %}
   <div class="row">
+    
 
       <!--Grid column-->
       <div class="col-md-9 mb-md-0 mb-5">
-          <form id="customer-form" name="customer-form" action="{% url 'custreg' %}" method="POST">
+          <form action="{% url 'custreg' %}" method="POST" onsubmit="return validation()" >
             {% csrf_token %}
               <!--Grid row-->
-              {%
-                
-                
-              %}
               
               
               <div class="row">
@@ -29,7 +40,8 @@
                   <div class="col-md-6">
                     <div class="md-form mb-0">
                       <label for="name" class="">Name</label>
-                      <input type="text" id="name" name="custname" class="form-control">
+                      <input type="text" id="name" name="custname" class="form-control"  autocomplete="off">
+                      <span id="names" class="text-danger font-weight-bold"> </span>
                       
                   </div>
                   </div>
@@ -44,7 +56,8 @@
                   <div class="col-md-6">
                     <div class="md-form mb-0">
                       <label for="email" class="">Email</label>
-                      <input type="text" id="email" name="custemail" class="form-control">
+                      <input type="text" id="email" name="custemail" class="form-control"  autocomplete="off">
+                      <span id="emails" class="text-danger font-weight-bold"> </span>
                       
                       
                   </div>
@@ -59,7 +72,8 @@
                   <div class="col-md-6">
                     <div class="md-form mb-0">
                       <label for="Phone" class="">Phone</label>
-                      <input type="text" id="Phone" name="custphone" class="form-control">
+                      <input type="text" id="Phone" name="custphone" class="form-control"  autocomplete="off">
+                      <span id="phones" class="text-danger font-weight-bold"> </span>
                        
                   </div>
                   </div>
@@ -71,11 +85,19 @@
                   <!--Grid column-->
                   <div class="col-md-6">
                     <div class="md-form mb-0">
-                      <label for="dectonate" class="">Dectonate</label>
-                      <input type="text" id="dectonate" name="custstatus" class="form-control">
+                      <label for="dectonate" class="">Adress</label>
+                      <input type="text" id="dectonate" name="custstatus" class="form-control"  autocomplete="off">
+                      <span id="statuses" class="text-danger font-weight-bold"> </span>
                        
                   </div>
                   </div>
+                </div><br />
+                  <div class="text-center text-md-left">
+                   <input type="submit" value="save" name="Save" class="btn btn-primary"></div> 
+                   <span id="success" class="bg-success font-weight-bold"> </span>
+                   </form>
+                   
+                   
                   <!--Grid column-->
                 </div>
 
@@ -86,21 +108,94 @@
               
               
 
-          </form>
+          <script type="text/javascript">
+            function validation(){
+              
+              var Name = document.getElementById('name').value;
+              var Email = document.getElementById('email').value;
+              var Phone = document.getElementById('Phone').value;
+              var Dectonate = document.getElementById('dectonate').value;
 
-          <div class="text-center text-md-left">
-              <a class="btn btn-primary" onclick="document.getElementById('customer-form').submit();">Send</a>
+
+
+              if(Name == ""){
+                document.getElementById('names').innerHTML="**Please fill the Name field";
+                return false;
+              }
+              if(!isNaN(Name)){
+                document.getElementById('names').innerHTML="**Only characters are allowed";
+                return false;
+              }
+
+
+
+              if(Email == ""){
+                document.getElementById('emails').innerHTML="**Please fill the Email field";
+                return false;
+              }
+              if(Email.indexOf('@') <= 0){
+                document.getElementById('emails').innerHTML="**@ Invalid position";
+                return false;
+              }
+              if((Email.charAt(Email.length-4)!='.') && (Email.charAt(Email.length-3)!='.')){
+                document.getElementById('emails').innerHTML="**. Invalid position";
+                return false;
+              }
+
+
+
+              if(Phone == ""){
+                document.getElementById('phones').innerHTML="**Please fill the Phone field";
+                return false;
+              }
+              if(isNaN(Phone)){
+              document.getElementById('phones').innerHTML="**Only digits are allowed";
+                return false;
+              }
+              if(Phone.length!=10){
+                document.getElementById('phones').innerHTML="**It must be 10 digits number";
+                return false;
+              }
+
+
+
+              if(Dectonate == ""){
+                document.getElementById('statuses').innerHTML="**Please fill the Adress field";
+                return false;
+              }
+              
+
+
+              if(Name!="" && Email!="" && Phone!="" && Dectonate!=""){
+                document.getElementById('success').innerHTML="You have successfully registered!!"
+                window.location('http://localhost:8000/custregister/');
+              }
+            }
+          
+          
+          
+          </script>
+
+          <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+          
+          
+
+        
           </div>
-          </div>
+          
           <div class="status"></div>
+          
       </div>
+      
       <!--Grid column-->
 
      
      
 
-  </div>
-
+  
+  
 </section>
+{% endif %}
+
 <!--Section: Contact v.2-->
 {% endblock %}
