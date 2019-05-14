@@ -46,7 +46,7 @@
                 <div class="container-fluid">
                     <div class="header-mobile-inner">
                         <a class="logo" href="index.html">
-                            <img src="images/icon/logo.png" alt="CoolAdmin" />
+                            <img src="{% static 'organisations/images/logo2.png' %}" alt="TrackDebtors" />
                         </a>
                         <button class="hamburger hamburger--slider" type="button">
                             <span class="hamburger-box">
@@ -74,61 +74,23 @@
                                 <i class="fas fa-chart-bar"></i>Customer Registration</a>
                         </li>
                         <li>
-                            <a href="table.html">
-                                <i class="fas fa-table"></i>Tables</a>
+                            <a href="{% url 'custreg' %}">
+                                <i class="fas fa-chart-bar"></i>Customer Registration</a>
                         </li>
                         <li>
-                            <a href="form.html">
-                                <i class="far fa-check-square"></i>Forms</a>
+                            <a href="{% url 'custreg' %}">
+                                <i class="fas fa-chart-bar"></i>Customer Registration</a>
                         </li>
                         <li>
-                            <a href="#">
-                                <i class="fas fa-calendar-alt"></i>Calendar</a>
+                            <a href="{% url 'custreg' %}">
+                                <i class="fas fa-chart-bar"></i>Customer Registration</a>
                         </li>
                         <li>
-                            <a href="map.html">
-                                <i class="fas fa-map-marker-alt"></i>Maps</a>
+                            <a href="{% url 'newchart' %}">
+                                <i class="fas fa-chart-bar"></i>report</a>
                         </li>
                         
-                        <li class="has-sub">
-                            <a class="js-arrow" href="#">
-                                <i class="fas fa-desktop"></i>UI Elements</a>
-                            <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
-                                <li>
-                                    <a href="button.html">Button</a>
-                                </li>
-                                <li>
-                                    <a href="badge.html">Badges</a>
-                                </li>
-                                <li>
-                                    <a href="tab.html">Tabs</a>
-                                </li>
-                                <li>
-                                    <a href="card.html">Cards</a>
-                                </li>
-                                <li>
-                                    <a href="alert.html">Alerts</a>
-                                </li>
-                                <li>
-                                    <a href="progress-bar.html">Progress Bars</a>
-                                </li>
-                                <li>
-                                    <a href="modal.html">Modals</a>
-                                </li>
-                                <li>
-                                    <a href="switch.html">Switchs</a>
-                                </li>
-                                <li>
-                                    <a href="grid.html">Grids</a>
-                                </li>
-                                <li>
-                                    <a href="fontawesome.html">Fontawesome Icon</a>
-                                </li>
-                                <li>
-                                    <a href="typo.html">Typography</a>
-                                </li>
-                            </ul>
-                        </li>
+                           
                     </ul>
                 </div>
             </nav>
@@ -139,7 +101,7 @@
         <aside class="menu-sidebar d-none d-lg-block">
             <div class="logo">
                 <a href="#">
-                    <img src="images/icon/logo.png" alt="Cool Admin" />
+                    <img src="{% static 'organisations/images/logo2.png' %}" alt="Track DEbtor" />
                 </a>
             </div>
             <div class="menu-sidebar__content js-scrollbar1">
@@ -160,61 +122,28 @@
                                 <i class="fas fa-chart-bar"></i>Customer Registration</a>
                         </li>
                         <li>
-                            <a href="table.html">
-                                <i class="fas fa-table"></i>Tables</a>
+                            <a href="{% url 'showcust' %}">
+                                <i class="fas fa-chart-bar"></i>Customer Details</a>
                         </li>
                         <li>
-                            <a href="form.html">
-                                <i class="far fa-check-square"></i>Forms</a>
+                            <a href="{% url 'showcust' %}">
+                                <i class="fas fa-chart-bar"></i>Customer Edit&delete</a>
                         </li>
                         <li>
-                            <a href="#">
-                                <i class="fas fa-calendar-alt"></i>Calendar</a>
+                            <a href="{% url 'outstanding' %}">
+                                <i class="fas fa-chart-bar">Outstanding Entry</i></a>
                         </li>
                         <li>
-                            <a href="map.html">
-                                <i class="fas fa-map-marker-alt"></i>Maps</a>
+                            <a href="{% url 'showdebtors' %}">
+                                <i class="fas fa-chart-bar">Debtors Details</i></a>
                         </li>
+                        <li>
+                            <a href="{% url 'newchart' %}">
+                                <i class="fas fa-chart-bar">Report</i></a>
+                        </li>
+                        
                        
-                        <li class="has-sub">
-                            <a class="js-arrow" href="#">
-                                <i class="fas fa-desktop"></i>UI Elements</a>
-                            <ul class="list-unstyled navbar__sub-list js-sub-list">
-                                <li>
-                                    <a href="button.html">Button</a>
-                                </li>
-                                <li>
-                                    <a href="badge.html">Badges</a>
-                                </li>
-                                <li>
-                                    <a href="tab.html">Tabs</a>
-                                </li>
-                                <li>
-                                    <a href="card.html">Cards</a>
-                                </li>
-                                <li>
-                                    <a href="alert.html">Alerts</a>
-                                </li>
-                                <li>
-                                    <a href="progress-bar.html">Progress Bars</a>
-                                </li>
-                                <li>
-                                    <a href="modal.html">Modals</a>
-                                </li>
-                                <li>
-                                    <a href="switch.html">Switchs</a>
-                                </li>
-                                <li>
-                                    <a href="grid.html">Grids</a>
-                                </li>
-                                <li>
-                                    <a href="fontawesome.html">Fontawesome Icon</a>
-                                </li>
-                                <li>
-                                    <a href="typo.html">Typography</a>
-                                </li>
-                            </ul>
-                        </li>
+                        
                     </ul>
                 </nav>
             </div>
@@ -347,7 +276,42 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+                                <div class="account-wrap">
+                                    <div class="account-item clearfix js-item-menu">
+                                        <div class="image">
+                                            <img src=" {{media_url}} {{orgdata.orglogo}} "alt="John Doe" />
+                                        </div>
+                                        <div class="content">
+                                            <a class="js-acc-btn" href="#">{{ orgdata.orgname }}</a>
+                                        </div>
+                                        <div class="account-dropdown js-dropdown">
+                                            <div class="info clearfix">
+                                                <div class="image">
+                                                    <a href="#">
+                                                        <img src="images/icon/avatar-01.jpg" alt="John Doe" />
+                                                    </a>
+                                                </div>
+                                                <div class="content">
+                                                    <h5 class="name">
+                                                        <a href="#">{{ orgdata.orgname }}</a>
+                                                    </h5>
+                                                    <span class="email">{{ orgdata.orglogo}}</span>
+                                                </div>
+                                            </div>
+                                            <div class="account-dropdown__body">
+                                                <div class="account-dropdown__item">
+                                                    <a href="#">
+                                                        <i class="zmdi zmdi-account"></i>Account</a>
+                                                </div>
+                                                
+                                            </div>
+                                            <div class="account-dropdown__footer">
+                                                <a href="#">
+                                                    <i class="zmdi zmdi-power"></i>Logout</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 
                             </div>
                         </div>
@@ -355,10 +319,9 @@
                 </div>
             </header>
             <!-- HEADER DESKTOP-->
+            
             {% block content2 %}
-            {% endblock %}
-            <!-- MAIN CONTENT-->
-            <!-- END MAIN CONTENT-->
+              {% endblock %}
             <!-- END PAGE CONTAINER-->
         </div>
 

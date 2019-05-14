@@ -1,9 +1,11 @@
-<!DOCTYPE html>  
-<html lang="en">  
-<head>  
-    <meta charset="UTF-8">  
-    <title>Customers Records</title>  
-     {% load staticfiles %}  
+{% extends 'organisations/dashboard.html' %}
+{%load static %}
+  {% block content2%}
+             
+     {% load staticfiles %} 
+     <br>
+     <br>
+     <br> 
     <link rel="stylesheet" href="{% static 'css/style.css' %}"/>  
 </head>  
 <body>  
@@ -44,6 +46,4 @@
     </tbody>  
 </table>  
 </section>
-
-</body>  
-</html>  
+{% endblock %}

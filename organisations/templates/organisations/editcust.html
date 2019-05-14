@@ -1,12 +1,11 @@
-<!DOCTYPE html>  
-<html lang="en">  
-<head>  
-    <meta charset="UTF-8">  
-    <title>Hello, world!</title>  
-    {% load staticfiles %}  
-    
-</head>  
-<body>  
+
+    {% extends 'organisations/dashboard.html' %}
+
+    {% block content2%}
+  {%load static %}
+  <br>
+  <br>
+  <br>
 <form method="POST" class="post-form" action="/updatecust/{{customer.id}}">  
         {% csrf_token %}  
     <div class="container">  
@@ -58,5 +57,4 @@
   </div>  
     </div>  
 </form>  
-</body>  
-</html>  
+{% endblock %}

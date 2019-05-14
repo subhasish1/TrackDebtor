@@ -8,6 +8,7 @@ from organisations.forms import CustomerForm
 from apscheduler.schedulers.background import BackgroundScheduler
 from django.db.models import Count, Q
 from django.db import connection
+from django.contrib import messages
 #from django.template.loader import render_to_string
 
 #>>>>>>> 0e74b8e2590a34a80fb82175d5afa6408be8ec28
@@ -73,7 +74,7 @@ def orglogin(request):
                     request.session['logged_in'] = True
                     return render(request,'organisations/dashboard_main_content.html',{'orgdata' : orgdata })
                 else:
-                    print('Login failed')
+                    messages.error(request,"Invalid Username and password try again!!")
                     return render(request,"organisations/orglogin.html")   
         else:   
             return render(request,"organisations/orglogin.html")
@@ -84,24 +85,25 @@ def show(request):
 
 def custreg(request):
     if request.session.has_key('orgid'):
-    
+        org_id=request.session['orgid']
+        orgdata = Organisations.objects.filter(id=org_id)
         if request.method == 'POST':
-            
-            org_id=request.session['orgid']
-            orgdata = Organisations.objects.filter(orgid=org_id)
+                
+                
             print(org_id)
             cust_name=request.POST.get('custname')
             cust_email=request.POST.get('custemail')
             cust_phn=request.POST.get('custphone')
             cust_status=request.POST.get('custstatus')
-        
+            
             cust = Customer(orgid=org_id, custname=cust_name, custemail=cust_email,custphn=cust_phn,custstatus=cust_status )
             cust.save()
             messages.success(request, 'Profile details updated.')
             return render(request, 'organisations/customer.html',{'orgdata' : orgdata})
         else:
-            return render(request, 'organisations/orglogin.html')
+            return render(request, 'organisations/customer.html',{'orgdata':orgdata})
     else:
+        messages.error(request, 'You Are Not Logged In!!!')
         return render(request,'organisations/orglogin.html')
    
         
@@ -200,22 +202,22 @@ def start_job():
         pass
 def showdebtors(request):
     if request.session.has_key('orgid'):
-        co = connection.cursor()     
-        co.execute("select c.custname,o.bill_no,o.bill_amt,o.due_amt,o.bill_date,o.cleared_on,o.creditperiod from customer c, outstanding o where c.id=o.custid and due_amt > 0")
-        debtors=co.fetchall()
-        print (debtors)
+        #co = connection.cursor()     
+        #co.execute("select c.custname,o.bill_no,o.bill_amt,o.due_amt,o.bill_date,o.cleared_on,o.creditperiod from customer c, outstanding o where c.id=o.custid and due_amt > 0")
+        #debtors=co.fetchall()
+        #print (debtors)
         #data = Customer.objects.get(id=14)
         #print (data)
         data2 = Customer.objects.raw('select c.id as id ,c.id,c.custname,o.bill_no,o.bill_amt,o.due_amt,o.bill_date,o.cleared_on,o.creditperiod from customer c, outstanding o where c.id=o.custid and due_amt > 0')
-        print (data2)
+        #print (data2)
         return render(request,"organisations/showdebt.html",{'debtors': data2})
     else:
         return render(request,"organisations/showdebt.html",{'debtors': data2})
 
     
 def newchart(request):
-    if request.session.has_key('orgid'):
+    #if request.session.has_key('orgid'):
         dataset =Outstanding.objects.raw('select o.id as id, o.id, o.bill_date,o.bill_amt,o.due_amt from outstanding o')
-        return render(request, 'organisations/orgReport.html', {'dataset': dataset})
-    else:
-        return render(request, 'organisations/orgReport.html', {'dataset': dataset})
+        return render(request, 'organisations/newchart.html', {'dataset': dataset})
+    #else:
+        #return render(request, 'organisations/newchart.html', {'dataset': dataset})

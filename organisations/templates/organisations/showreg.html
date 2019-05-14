@@ -1,8 +1,7 @@
-<!DOCTYPE html>  
-<html lang="en">  
-<head>  
-    <meta charset="UTF-8">  
-    <title>Organisation Records</title>  
+{% extends 'organisations/dashboard.html' %}
+{%load static %}
+  {% block content2%}
+            
      {% load staticfiles %}  
     <link rel="stylesheet" href="{% static 'css/style.css' %}"/>  
 </head>  
@@ -40,6 +39,4 @@
 <br>  
 <br>  
  
- 
-</body>  
-</html>  
+{% endblock %}

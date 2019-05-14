@@ -1,10 +1,13 @@
 {% extends 'organisations/dashboard.html' %}
-
-{% block content2 %}
-  <!--Section: Contact v.2-->
-  welcome {{ request.session.orgid }}
-  {% if request.session.logged_in %}
-  <section class="mb-4">
+{%load static %}
+  {% block content2%}
+            
+            {% if  request.session.orgid is None %}
+                <h1>Invalid</h1>
+                {% endif %}
+            <div class="main-content">
+              
+            <section class="mb-4">
 
   <!--Section heading-->
   <h2 class="h1-responsive font-weight-bold text-center my-4">Customer Resigstraions Form</h2>
@@ -16,7 +19,8 @@
       <div class='col-sm-6 col-sm-offset-3'>
     
         {% for message in messages %}
-        <p {% if message.tags='success' %} class="alert alert-success"{% endif %}>{{ message }}</p>
+        <p {% if message.tags == 'success' %} class="alert alert-success" {% endif %} >{{ message }}</p>
+        
         {% endfor %}
         
         
@@ -94,7 +98,7 @@
                 </div><br />
                   <div class="text-center text-md-left">
                    <input type="submit" value="save" name="Save" class="btn btn-primary"></div> 
-                   <span id="success" class="bg-success font-weight-bold"> </span>
+                   
                    </form>
                    
                    
@@ -188,14 +192,13 @@
       </div>
       
       <!--Grid column-->
-
-     
-     
-
   
   
 </section>
-{% endif %}
+            <!-- END MAIN CONTENT-->
+            
+            <!-- END PAGE CONTAINER-->
+        </div>
 
-<!--Section: Contact v.2-->
-{% endblock %}
+    {% endblock %}
+<!-- end document-->
