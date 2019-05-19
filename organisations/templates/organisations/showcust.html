@@ -3,8 +3,65 @@
   {% block content2%}
              
      {% load staticfiles %}  
-     <br>
-     <br>
+     <div class="account-wrap">
+                                    <div class="account-item clearfix js-item-menu">
+                                        <div class="image">
+                                            <img src=" {{media_url}} {{orgdata.orglogo}} "alt="John Doe" />
+                                        </div>
+                                        <div class="content">
+                                            <a class="js-acc-btn" href="#">{{ orgdata.orgname }}</a>
+                                        </div>
+                                        <div class="account-dropdown js-dropdown">
+                                            <div class="info clearfix">
+                                                <div class="image">
+                                                    <a href="#">
+                                                        <img src="images/icon/avatar-01.jpg" alt="John Doe" />
+                                                    </a>
+                                                </div>
+                                                <div class="content">
+                                                    <h5 class="name">
+                                                        <a href="#">{{ orgdata.orgname }}</a>
+                                                    </h5>
+                                                    <span class="email">{{ orgdata.orglogo}}</span>
+                                                </div>
+                                            </div>
+                                            <div class="account-dropdown__body">
+                                                <div class="account-dropdown__item">
+                                                    <a href="#">
+                                                        <i class="zmdi zmdi-account"></i>Account</a>
+                                                </div>
+                                                
+                                            </div>
+                                            <div class="account-dropdown__footer">
+                                                <a href="#">
+                                                    <i class="zmdi zmdi-power"></i>Logout</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>      
+            <div class="main-content">
+              
+            <section class="mb-4">
+
+  <!--Section heading-->
+  <h2 class="h1-responsive font-weight-bold text-center my-4">Customer Details</h2>
+  <!--Section description-->
+  
+<div class="container">
+  {% if messages %}
+  <div class=row>
+      <div class='col-sm-6 col-sm-offset-3'>
+    
+        {% for message in messages %}
+        <p {% if message.tags == 'success' %} class="alert alert-success" {% endif %} >{{ message }}</p>
+        
+        {% endfor %}
+        
+        
+      </div>
+   </div>   
+{% endif %}
+     
      <br>
     <link rel="stylesheet" href="{% static 'css/style.css' %}"/>  
 </head>  
@@ -12,7 +69,7 @@
 <table class="table table-striped table-bordered table-sm">  
     <thead class="thead-dark">  
     <tr>  
-        <th>ORGANISATIONS ID</th>  
+        
         <th>NAME</th>  
         <th>EMAIL</th>  
         <th>PHONE</th>  
@@ -25,7 +82,7 @@
     <tbody>  
 {% for customer in customers %}  
     <tr>  
-        <td>{{ customer.orgid }}</td>  
+        
         <td>{{ customer.custname }}</td>  
         <td>{{ customer.custemail }}</td>  
         <td>{{ customer.custphn}}</td>

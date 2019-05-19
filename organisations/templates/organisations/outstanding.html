@@ -11,6 +11,19 @@
   <!--Section description-->
   
 <div class="container">
+  {% if messages %}
+  <div class=row>
+      <div class='col-sm-6 col-sm-offset-3'>
+    
+        {% for message in messages %}
+        <p {% if message.tags == 'success' %} class="alert alert-success" {% endif %} >{{ message }}</p>
+        
+        {% endfor %}
+        
+        
+      </div>
+   </div>   
+{% endif %}
   <div class="row">
 
       <!--Grid column-->
@@ -20,22 +33,7 @@
               <!--Grid row-->
               
              
-              <div class="row">
-
-
-                  <!--Grid column-->
-                  <div class="col-md-6">
-                    <div class="md-form mb-0">
-                      <label for="orgid" class="">Organisation Id:</label>
-                      <input type="text" id="orgid" name="orgid" class="form-control">
-                      
-                  </div>
-                  </div>
-                  <!--Grid column-->
-
-                  
-
-              </div>
+              
               <div class="row">
 
                   <!--Grid column-->

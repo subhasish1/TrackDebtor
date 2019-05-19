@@ -3,6 +3,43 @@
 
     {% block content2%}
   {%load static %}
+
+                            <div class="account-wrap">
+                                    <div class="account-item clearfix js-item-menu">
+                                        <div class="image">
+                                            <img src=" {{media_url}} {{orgdata.orglogo}} "alt="John Doe" />
+                                        </div>
+                                        <div class="content">
+                                            <a class="js-acc-btn" href="#">{{ orgdata.orgname }}</a>
+                                        </div>
+                                        <div class="account-dropdown js-dropdown">
+                                            <div class="info clearfix">
+                                                <div class="image">
+                                                    <a href="#">
+                                                        <img src="images/icon/avatar-01.jpg" alt="John Doe" />
+                                                    </a>
+                                                </div>
+                                                <div class="content">
+                                                    <h5 class="name">
+                                                        <a href="#">{{ orgdata.orgname }}</a>
+                                                    </h5>
+                                                    <span class="email">{{ orgdata.orglogo}}</span>
+                                                </div>
+                                            </div>
+                                            <div class="account-dropdown__body">
+                                                <div class="account-dropdown__item">
+                                                    <a href="#">
+                                                        <i class="zmdi zmdi-account"></i>Account</a>
+                                                </div>
+                                                
+                                            </div>
+                                            <div class="account-dropdown__footer">
+                                                <a href="#">
+                                                    <i class="zmdi zmdi-power"></i>Logout</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> 
   <br>
   <br>
   <br>
@@ -16,12 +53,7 @@
     <h2 class="h1-responsive font-weight-bold text-center my-4">Update Details</h2>  
     </div>  
   </div>  
-    <div class="form-group row">  
-    <label class="col-sm-2 col-form-label">Organisation Id:</label>  
-    <div class="col-sm-4">  
-        <input type="text" name="orgid" id="orgid" required maxlength="20" value="{{ customer.orgid}}"/>  
-    </div>  
-  </div>  
+    
   <div class="form-group row">  
     <label class="col-sm-2 col-form-label">Name:</label>  
     <div class="col-sm-4">  
@@ -43,7 +75,7 @@
     </div>
 
     <div class="form-group row">  
-        <label class="col-sm-2 col-form-label">Dectonate:</label>  
+        <label class="col-sm-2 col-form-label">Address:</label>  
         <div class="col-sm-4">  
             <input type="text" name="custstatus" id="dectonate" required maxlength="15" value="{{ customer.custstatus }}" />  
         </div>  

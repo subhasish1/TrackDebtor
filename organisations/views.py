@@ -86,11 +86,14 @@ def show(request):
 def custreg(request):
     if request.session.has_key('orgid'):
         org_id=request.session['orgid']
-        orgdata = Organisations.objects.filter(id=org_id)
+       # print(org_id)
+        orgdata = Organisations.objects.get(id=org_id)
+
+        #print(orgdata.orgname)
         if request.method == 'POST':
                 
                 
-            print(org_id)
+            #print(org_id)
             cust_name=request.POST.get('custname')
             cust_email=request.POST.get('custemail')
             cust_phn=request.POST.get('custphone')
@@ -104,15 +107,16 @@ def custreg(request):
             return render(request, 'organisations/customer.html',{'orgdata':orgdata})
     else:
         messages.error(request, 'You Are Not Logged In!!!')
-        return render(request,'organisations/orglogin.html')
+        return render(request, 'organisations/orglogin.html')
    
         
 def showcust(request):
     if request.session.has_key('orgid'):
             
         org_id=request.session['orgid']
+        orgdata = Organisations.objects.get(id=org_id)
         customers = Customer.objects.filter(orgid=org_id)
-        return render(request,"organisations/showcust.html",{'customers':customers})
+        return render(request,"organisations/showcust.html",{'customers':customers,'orgdata' :orgdata})
 
 
 
@@ -120,6 +124,9 @@ def showcust(request):
 def editcust(request, id):
     if request.session.has_key('orgid'):
         customer = Customer.objects.get(id=id)
+        org_id=request.session['orgid']
+        orgdata = Organisations.objects.get(id=org_id)
+        
         if request.method == "POST":
                 org_id=request.POST.get('orgid')
                 cust_name=request.POST.get('custname')
@@ -128,19 +135,42 @@ def editcust(request, id):
                 cust_status=request.POST.get('custstatus')
                 customer = Customer(orgid=org_id, custname=cust_name, custemail=cust_email,custphn=cust_phn,custstatus=cust_status )
                 customer.save()
+                return render(request,'organisations/showcust.html.html',{'customer': customer,'orgdata' :orgdata})
         else:
-            return render(request,'organisations/editcust.html',{'customer': customer})
+            return render(request,'organisations/editcust.html',{'customer': customer,'orgdata' :orgdata})
     else:
-        return render(request,'organisations/editcust.html',{'customer': customer})
+        messages.error(request, 'You Are Not Logged In!!!')
+        return render(request, 'organisations/orglogin.html')
 
 def updatecust(request, id):
     if request.session.has_key('orgid'):
+        org_id=request.session['orgid']
+        orgdata = Organisations.objects.get(id=org_id)
+        
         customer = Customer.objects.get(id=id)
-        form = CustomerForm(request.POST, instance = customer)  
-        form.save()  
-        return redirect("/showcust") 
+        if request.method == 'POST':
+                
+                
+            #print(org_id)
+            cust_name=request.POST.get('custname')
+            cust_email=request.POST.get('custemail')
+            cust_phn=request.POST.get('custphn')
+            cust_status=request.POST.get('custstatus')
+            Customer.objects.filter(id=id).update(custname=cust_name, custemail=cust_email,custphn=cust_phn,custstatus=cust_status)
+
+            #cust = Customer(orgid=org_id, custname=cust_name, custemail=cust_email,custphn=cust_phn,custstatus=cust_status )
+            #cust.update()
+            messages.success(request, 'Profile details updated.')
+            return redirect("/showcust/")
+        else:
+            return render(request, 'organisations/customer.html',{'orgdata':orgdata})
+
+        #form = CustomerForm(request.POST, instance = customer) 
+       # if form.is_valid(): 
+            #form.save()
+            #return redirect("/showcust/")
     else:
-        return render(request,'organisations/editcust.html',{'customer': customer})
+        return render(request,'organisations/showcust.html',{'customer': customer,'orgdata' :orgdata})
 
 def destroy(request,id):
     if request.session.has_key('orgid'):
@@ -150,23 +180,31 @@ def destroy(request,id):
     else:
         return render(request,'organisations/editcust.html',{'customer': customer})
 def outstanding(request):
+    if request.session.has_key('orgid'):
+        #customer = Customer.objects.get(id=id)
+        org_id=request.session['orgid']
+        orgdata = Organisations.objects.get(id=org_id)
 
-    if request.method == 'POST':
+        if request.method == 'POST':
         
-        org_id=request.POST.get('orgid')
-        cust_id=request.POST.get('custid')
-        bill_no=request.POST.get('bill_no')
-        bill_amt=request.POST.get('bill_amt')
-        due_amt=request.POST.get('due_amt')
-        bill_date=request.POST.get('bill_date')
-        cleared_on=request.POST.get('cleared_on')
-        credit_period = request.POST.get('creditperiod')
+            
+            cust_id=request.POST.get('custid')
+            bill_no=request.POST.get('bill_no')
+            bill_amt=request.POST.get('bill_amt')
+            due_amt=request.POST.get('due_amt')
+            bill_date=request.POST.get('bill_date')
+            cleared_on=request.POST.get('cleared_on')
+            credit_period = request.POST.get('creditperiod')
 
-        p = Outstanding(orgid=org_id, custid=cust_id, bill_no=bill_no, bill_amt=bill_amt, due_amt=due_amt, bill_date=bill_date, cleared_on=cleared_on,creditperiod=credit_period )
-        p.save()
-        return render(request,'organisations/outstanding.html')
+            p = Outstanding(orgid=org_id, custid=cust_id, bill_no=bill_no, bill_amt=bill_amt, due_amt=due_amt, bill_date=bill_date, cleared_on=cleared_on,creditperiod=credit_period )
+            p.save()
+            messages.success(request, 'Outstanding details updated.')
+            return render(request,'organisations/outstanding.html',{'orgdata' :orgdata})
+        else:
+            return render(request,'organisations/outstanding.html',{'orgdata' :orgdata})
     else:
-        return render(request,'organisations/outstanding.html')
+        messages.error(request, 'You Are Not Logged In!!!')
+        return render(request, 'organisations/orglogin.html')
 
 def email(request,id):
     cust = Customer.objects.get(id=id)
@@ -191,33 +229,46 @@ def email(request,id):
     send_mail(subject,message,email_form,recipient_list)
     return HttpResponse(okk)
 
-scheduler = BackgroundScheduler()
-job = None
-def start_job():
-    global job
-    job = scheduler.add_job(email, 'interval', seconds=60)
-    try:
-        scheduler.start() 
-    except:
-        pass
+    scheduler = BackgroundScheduler()
+    job = None
+    def start_job():
+        global job
+        job = scheduler.add_job(email, 'interval', seconds=60)
+        try:
+            scheduler.start() 
+        except:
+            pass
 def showdebtors(request):
     if request.session.has_key('orgid'):
-        #co = connection.cursor()     
-        #co.execute("select c.custname,o.bill_no,o.bill_amt,o.due_amt,o.bill_date,o.cleared_on,o.creditperiod from customer c, outstanding o where c.id=o.custid and due_amt > 0")
-        #debtors=co.fetchall()
-        #print (debtors)
-        #data = Customer.objects.get(id=14)
-        #print (data)
-        data2 = Customer.objects.raw('select c.id as id ,c.id,c.custname,o.bill_no,o.bill_amt,o.due_amt,o.bill_date,o.cleared_on,o.creditperiod from customer c, outstanding o where c.id=o.custid and due_amt > 0')
-        #print (data2)
-        return render(request,"organisations/showdebt.html",{'debtors': data2})
+        
+        #customer = Customer.objects.get(id=id)
+            org_id=request.session['orgid']
+            orgdata = Organisations.objects.get(id=org_id)
+            data2 = Customer.objects.raw('select c.id as id ,c.id,c.custname,o.bill_no,o.bill_amt,o.due_amt,o.bill_date,o.cleared_on,o.creditperiod from customer c, outstanding o where c.id=o.custid and o.orgid=1')
+            
+            return render(request,"organisations/showdebt.html",{'debtors': data2,'orgdata' :orgdata})
+        
     else:
-        return render(request,"organisations/showdebt.html",{'debtors': data2})
+         messages.error(request, 'You Are Not Logged In!!!')
+         return render(request, 'organisations/orglogin.html')
 
     
 def newchart(request):
-    #if request.session.has_key('orgid'):
-        dataset =Outstanding.objects.raw('select o.id as id, o.id, o.bill_date,o.bill_amt,o.due_amt from outstanding o')
-        return render(request, 'organisations/newchart.html', {'dataset': dataset})
-    #else:
-        #return render(request, 'organisations/newchart.html', {'dataset': dataset})
+    if request.session.has_key('orgid'):
+        
+        
+        org_id=request.session['orgid']
+        orgdata = Organisations.objects.get(id=org_id)
+        dataset = Outstanding.objects.raw('select o.id as id, o.id, o.bill_date,o.bill_amt,o.due_amt from outstanding o')
+        return render(request, 'organisations/newchart.html', {'dataset': dataset,'orgdata' :orgdata})
+    else:
+        messages.error(request, 'You Are Not Logged In!!!')
+        return render(request, 'organisations/orglogin.html')
+    
+def orglogout(request):
+    try:
+        del request.session['orgid']
+        messages.success(request, 'You are sucessfully logout!!Please log!!!')
+        return render(request, 'organisations/orglogin.html')
+    except KeyError:
+        return render(request, 'organisations/orglogin.html')

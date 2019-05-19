@@ -17,7 +17,7 @@ urlpatterns = [
     path('editcust/<int:id>',views.editcust, name='editcust'),
     path('updatecust/<int:id>',views.updatecust, name='updatecust'),
     path('deletecust/<int:id>',views.destroy, name='destroy'),
-    path('start_job',views.start_job, name='start_job'),
     path('newchart/',views.newchart,name='newchart'),
+    path('orglogout/',views.orglogout,name='orglogout'),
 ]
 
