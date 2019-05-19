@@ -2,6 +2,7 @@ from django.urls import path
 from . import views
 from django.conf import settings
 
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('', views.index, name='home'),
@@ -19,5 +20,6 @@ urlpatterns = [
     path('deletecust/<int:id>',views.destroy, name='destroy'),
     path('newchart/',views.newchart,name='newchart'),
     path('orglogout/',views.orglogout,name='orglogout'),
-]
+    path('resetpassword/',views.resetpassword,name='resetpassword'),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

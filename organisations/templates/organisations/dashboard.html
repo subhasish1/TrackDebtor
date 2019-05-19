@@ -141,6 +141,10 @@
                             <a href="{% url 'newchart' %}">
                                 <i class="fas fa-chart-bar">Report</i></a>
                         </li>
+                        <li>
+                            <a href="{% url 'resetpassword' %}">
+                                <i class="fas fa-chart-bar">Change Password</i></a>
+                        </li>
                         
                        
                         
@@ -279,7 +283,7 @@
                                 <div class="account-wrap">
                                     <div class="account-item clearfix js-item-menu">
                                         <div class="image">
-                                            <img src=" {{media_url}} {{orgdata.orglogo}} "alt="John Doe" />
+                                            <img src=" {{orgdata.orglogo.url}} "alt="John Doe" />
                                         </div>
                                         <div class="content">
                                             <a class="js-acc-btn" href="#">{{ orgdata.orgname }}</a>
@@ -345,7 +349,10 @@
     <script src="{% static 'organisations/vendor/circle-progress/circle-progress.min.js' %}"></script>
     <script src="{% static 'organisations/vendor/perfect-scrollbar/perfect-scrollbar.js' %}"></script>
     <script src="{% static 'organisations/vendor/chartjs/Chart.bundle.min.js' %}"></script>
-    <script src="{% static 'organisations/vendor/select2/select2.min.js' %}">
+    <script src="{% static 'organisations/vendor/select2/select2.min.js' %}"></script>
+    <script src="{% static 'organisations/static/js/application.js' %}"></script>
+    <script src="{% static 'organisations/static/js/bootstrap.js' %}"></script>
+
     </script>
 
     <!-- Main JS-->

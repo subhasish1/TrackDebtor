@@ -21,7 +21,7 @@ def portfolio(request):
     return render(request,'organisations/portfolio.html')
 
 def handle_uploaded_file1(f):  
-    with open('organisations/static/organisations/images/'+f.name, 'wb+') as destination:  
+    with open('organisations/static/organisations/media/'+f.name, 'wb+') as destination:  
         for chunk in f.chunks():  
             destination.write(chunk)  
 
@@ -271,4 +271,29 @@ def orglogout(request):
         messages.success(request, 'You are sucessfully logout!!Please log!!!')
         return render(request, 'organisations/orglogin.html')
     except KeyError:
+        return render(request, 'organisations/orglogin.html')
+
+
+def resetpassword(request):
+    if request.session.has_key('orgid'):
+        org_id=request.session['orgid']
+        orgdata = Organisations.objects.get(id=org_id)
+        if request.method == 'POST':
+            
+
+            old_pass = request.POST.get('oldpassword')
+            new_pass = request.POST.get('newpassword')
+            print(orgdata.orgpassword)
+
+            if orgdata.orgpassword == old_pass:
+                Organisations.objects.filter(id=org_id).update(orgpassword=new_pass)
+                messages.success(request, 'Password changed!! Please login!')
+                return render(request, 'organisations/orglogin.html')
+            else:
+                messages.error(request, 'please enter correct old password')
+                return render(request, 'organisations/orglogin.html')
+        else:
+            return render(request, 'organisations/orgresetpassword.html')
+    else:
+        messages.error(request, 'You Are Not Logged In!!!')
         return render(request, 'organisations/orglogin.html')
