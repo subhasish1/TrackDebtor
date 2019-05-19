@@ -21,5 +21,6 @@ urlpatterns = [
     path('newchart/',views.newchart,name='newchart'),
     path('orglogout/',views.orglogout,name='orglogout'),
     path('resetpassword/',views.resetpassword,name='resetpassword'),
+    path('productregister/',views.productregister,name='productregister'),    
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

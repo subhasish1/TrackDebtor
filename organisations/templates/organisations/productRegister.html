@@ -1,0 +1,234 @@
+{% extends 'organisations/dashboard.html' %}
+{%load static %}
+  {% block content2%}
+          <div class="account-wrap">
+                                    <div class="account-item clearfix js-item-menu">
+                                        <div class="image">
+                                            <img src=" {{media_url}} {{orgdata.orglogo}} "alt="John Doe" />
+                                        </div>
+                                        <div class="content">
+                                            <a class="js-acc-btn" href="#">{{ orgdata.orgname }}</a>
+                                        </div>
+                                        <div class="account-dropdown js-dropdown">
+                                            <div class="info clearfix">
+                                                <div class="image">
+                                                    <a href="#">
+                                                        <img src="images/icon/avatar-01.jpg" alt="John Doe" />
+                                                    </a>
+                                                </div>
+                                                <div class="content">
+                                                    <h5 class="name">
+                                                        <a href="#">{{ orgdata.orgname }}</a>
+                                                    </h5>
+                                                    <span class="email">{{ orgdata.orglogo}}</span>
+                                                </div>
+                                            </div>
+                                            <div class="account-dropdown__body">
+                                                <div class="account-dropdown__item">
+                                                    <a href="#">
+                                                        <i class="zmdi zmdi-account"></i>Account</a>
+                                                </div>
+                                                
+                                            </div>
+                                            <div class="account-dropdown__footer">
+                                                <a href="#">
+                                                    <i class="zmdi zmdi-power"></i>Logout</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>      
+            <div class="main-content">
+              
+            <section class="mb-4">
+
+  <!--Section heading-->
+  <h2 class="h1-responsive font-weight-bold text-center my-4">Customer Resigstraions Form</h2>
+  <!--Section description-->
+  
+<div class="container">
+  {% if messages %}
+  <div class=row>
+      <div class='col-sm-6 col-sm-offset-3'>
+    
+        {% for message in messages %}
+        <p {% if message.tags == 'success' %} class="alert alert-success" {% endif %} >{{ message }}</p>
+        
+        {% endfor %}
+        
+        
+      </div>
+   </div>   
+{% endif %}
+  <div class="row">
+    
+
+      <!--Grid column-->
+      <div class="col-md-9 mb-md-0 mb-5">
+          <form action="{% url 'productregister' %}" method="POST" onsubmit="return validation()" >
+            {% csrf_token %}
+              <!--Grid row-->
+              
+              
+              <div class="row">
+
+
+                  <!--Grid column-->
+                  <div class="col-md-6">
+                    <div class="md-form mb-0">
+                      <label for="name" class="">Brand:</label>
+                       <select name="brand" class="form-control">
+                          <option value="Bisleri">Bisleri</option>
+                          <option value="AquaFina">AquaFina</option>
+                          <option value="Kinley">Kinley</option>
+                          <option value="Ice Mountain">Ice Mountain</option>
+                        </select> 
+                      
+                      <span id="names" class="text-danger font-weight-bold"> </span>
+                      
+                  </div>
+                  </div>
+                  <!--Grid column-->
+
+                  
+
+              </div>
+              <div class="row">
+
+                  <!--Grid column-->
+                  <div class="col-md-6">
+                    <div class="md-form mb-0">
+                      <label for="email" class="">Quantity:</label>
+                      <select name="quantity" class="form-control">
+                          <option value="20">20 ltr</option>
+                          <option value="5">5 ltr</option>
+                          <option value="2">2 ltr</option>
+                          <option value="1">1 Ltr</option>
+                        </select> 
+                      
+                      <span id="emails" class="text-danger font-weight-bold"> </span>
+                      
+                      
+                  </div>
+                  </div>
+                  <!--Grid column-->
+
+              </div>
+             
+              <div class="row">
+
+                  <!--Grid column-->
+                  <div class="col-md-6">
+                    <div class="md-form mb-0">
+                      <label for="Phone" class="">Price</label>
+                      <input type="text" id="price" name="price" class="form-control"  autocomplete="off">
+                      <span id="phones" class="text-danger font-weight-bold"> </span>
+                       
+                  </div>
+                  </div>
+                  <!--Grid column-->
+                </div>
+
+                <div class="row">
+
+                  <!--Grid column-->
+                  <div class="col-md-6">
+                    <div class="md-form mb-0">
+                      <label for="dectonate" class="">gst</label>
+                      <input type="text" id="gst" name="gst" class="form-control"  autocomplete="off">
+                      <span id="statuses" class="text-danger font-weight-bold"> </span>
+                       
+                  </div>
+                  </div>
+                </div><br />
+                  <div class="text-center text-md-left">
+                   <input type="submit" value="save" name="Save" class="btn btn-primary"></div> 
+                   
+                   </form>
+                   
+                   
+                  <!--Grid column-->
+                </div>
+
+              
+
+              <!--Grid row-->
+
+              
+              
+
+          <script type="text/javascript">
+            function validation(){
+              
+              var Name = document.getElementById('brand').value;
+              var Email = document.getElementById('quantity').value;
+              var Phone = document.getElementById('price').value;
+              var Dectonate = document.getElementById('gst').value;
+
+
+
+              if(Name == ""){
+                document.getElementById('names').innerHTML="**Please fill the Name field";
+                return false;
+              }
+              if(!isNaN(Name)){
+                document.getElementById('names').innerHTML="**Only characters are allowed";
+                return false;
+              }
+
+
+
+              if(Email == ""){
+                document.getElementById('emails').innerHTML="**Please fill the Email field";
+                return false;
+              }
+              
+
+
+
+              if(Phone == ""){
+                document.getElementById('phones').innerHTML="**Please fill the Phone field";
+                return false;
+              }
+              
+
+
+
+              if(Dectonate == ""){
+                document.getElementById('statuses').innerHTML="**Please fill the Adress field";
+                return false;
+              }
+              
+
+
+              if(Name!="" && Email!="" && Phone!="" && Dectonate!=""){
+                document.getElementById('success').innerHTML="You have successfully registered!!"
+                window.location('http://localhost:8000/productregister/');
+              }
+            }
+          
+          
+          
+          </script>
+
+          <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+          
+          
+
+        
+          </div>
+          
+          <div class="status"></div>
+          
+      </div>
+      
+      <!--Grid column-->
+  
+  
+</section>
+            <!-- END MAIN CONTENT-->
+            
+            <!-- END PAGE CONTAINER-->
+        </div>
+
+    {% endblock %}
+<!-- end document-->

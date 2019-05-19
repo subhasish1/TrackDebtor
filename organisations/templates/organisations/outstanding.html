@@ -39,8 +39,13 @@
                   <!--Grid column-->
                   <div class="col-md-6">
                     <div class="md-form mb-0">
-                      <label for="custid" class="">Customer id</label>
-                      <input type="text" id="custid" name="custid" class="form-control">
+                      <label for="custid" class="">Customer Name</label>
+                        
+                         <select name = "custid">
+                          {% for customer in customer %}
+                          <option value= {{ customer.id  }}>{{ customer.custname }}</option>
+                          {% endfor %}
+                        </select>
                       
                   </div>
                   </div>

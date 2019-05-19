@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.conf.urls.static import static
-from .models import Organisations , Customer,Outstanding
+from .models import Organisations , Customer,Outstanding,Product
 from django.http import HttpResponse
 from django.core.mail import send_mail
 from django.conf import settings
@@ -181,14 +181,16 @@ def destroy(request,id):
         return render(request,'organisations/editcust.html',{'customer': customer})
 def outstanding(request):
     if request.session.has_key('orgid'):
-        #customer = Customer.objects.get(id=id)
+        
         org_id=request.session['orgid']
+        customer = Customer.objects.filter(orgid=org_id)
         orgdata = Organisations.objects.get(id=org_id)
 
         if request.method == 'POST':
         
             
             cust_id=request.POST.get('custid')
+            print(cust_id)
             bill_no=request.POST.get('bill_no')
             bill_amt=request.POST.get('bill_amt')
             due_amt=request.POST.get('due_amt')
@@ -199,9 +201,9 @@ def outstanding(request):
             p = Outstanding(orgid=org_id, custid=cust_id, bill_no=bill_no, bill_amt=bill_amt, due_amt=due_amt, bill_date=bill_date, cleared_on=cleared_on,creditperiod=credit_period )
             p.save()
             messages.success(request, 'Outstanding details updated.')
-            return render(request,'organisations/outstanding.html',{'orgdata' :orgdata})
+            return render(request,'organisations/outstanding.html',{'customer': customer,'orgdata' :orgdata})
         else:
-            return render(request,'organisations/outstanding.html',{'orgdata' :orgdata})
+            return render(request,'organisations/outstanding.html',{'customer': customer,'orgdata' :orgdata})
     else:
         messages.error(request, 'You Are Not Logged In!!!')
         return render(request, 'organisations/orglogin.html')
@@ -294,6 +296,26 @@ def resetpassword(request):
                 return render(request, 'organisations/orglogin.html')
         else:
             return render(request, 'organisations/orgresetpassword.html')
+    else:
+        messages.error(request, 'You Are Not Logged In!!!')
+        return render(request, 'organisations/orglogin.html')
+
+def productregister(request):
+    if request.session.has_key('orgid'):
+        org_id=request.session['orgid']
+        orgdata = Organisations.objects.get(id=org_id)
+        if request.method == 'POST':
+            prdt_brand=request.POST.get('brand')
+            prdt_quantity=request.POST.get('quantity')
+            prdt_price=request.POST.get('price')
+            prdt_gst=request.POST.get('gst')
+            
+            prdt = Product(orgid=org_id, brand=prdt_brand, quantity=prdt_quantity,price=prdt_price,gst=prdt_gst )
+            prdt.save()
+            messages.success(request, 'Product is created')
+            return render(request, 'organisations/productRegister.html',{'orgdata':orgdata })
+        else:
+            return render(request, 'organisations/productRegister.html',{'orgdata':orgdata })
     else:
         messages.error(request, 'You Are Not Logged In!!!')
         return render(request, 'organisations/orglogin.html')

@@ -32,3 +32,13 @@ class Outstanding(models.Model):
 	
 	class Meta:
 		db_table='outstanding'
+
+class Product(models.Model):
+	orgid = models.CharField(max_length=3)
+	brand = models.CharField(max_length=100)
+	quantity = models.CharField(max_length=10)
+	price = models.CharField(max_length=20)
+	gst = models.CharField(max_length=10)
+
+	class Meta:
+		db_table='product'
