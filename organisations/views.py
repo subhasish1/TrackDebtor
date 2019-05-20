@@ -194,6 +194,7 @@ def outstanding(request):
             bill_no=request.POST.get('bill_no')
             bill_amt=request.POST.get('bill_amt')
             paid_amount=request.POST.get('pamount')
+            #due = bill_amt - paid_amount
             due_amt=request.POST.get('due_amt')
             bill_date=request.POST.get('bill_date')
             cleared_on=request.POST.get('cleared_on')
@@ -262,7 +263,7 @@ def newchart(request):
         
         org_id=request.session['orgid']
         orgdata = Organisations.objects.get(id=org_id)
-        dataset = Outstanding.objects.raw('select o.id as id, o.id, o.bill_date,o.bill_amt,o.due_amt from outstanding o')
+        dataset = Outstanding.objects.all()#raw('select o.id as id, o.id, o.bill_date,o.bill_amt,o.due_amt from outstanding o')
         return render(request, 'organisations/newchart.html', {'dataset': dataset,'orgdata' :orgdata})
     else:
         messages.error(request, 'You Are Not Logged In!!!')
