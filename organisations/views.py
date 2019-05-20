@@ -375,10 +375,10 @@ def updateproduct(request, id):
             return render(request, 'organisations/productRegister.html',{'orgdata':orgdata})
 
 
-def destroyproduct(request,id,self):
+def destroyproduct(request,id):
     if request.session.has_key('orgid'):
-        product.self = Product.objects.get(id=id)
-        self.delete()
+        product = Product.objects.get(id=id)
+        product.delete()
         return redirect("/showproduct/")
     else:
         return render(request,'organisations/editproduct.html',{'product': product})
