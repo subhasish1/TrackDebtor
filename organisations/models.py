@@ -25,6 +25,7 @@ class Outstanding(models.Model):
 	custid = models.CharField(max_length=50)
 	bill_no = models.CharField(max_length=20)
 	bill_amt = models.CharField(max_length=20)
+	payment = models.CharField(max_length=20)
 	due_amt = models.CharField(max_length=10)
 	bill_date = models.DateField()
 	cleared_on=models.DateField()

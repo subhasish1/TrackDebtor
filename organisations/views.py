@@ -190,15 +190,17 @@ def outstanding(request):
         
             
             cust_id=request.POST.get('custid')
-            print(cust_id)
+            
             bill_no=request.POST.get('bill_no')
             bill_amt=request.POST.get('bill_amt')
+            paid_amount=request.POST.get('pamount')
+            #due = bill_amt - paid_amount
             due_amt=request.POST.get('due_amt')
             bill_date=request.POST.get('bill_date')
             cleared_on=request.POST.get('cleared_on')
             credit_period = request.POST.get('creditperiod')
 
-            p = Outstanding(orgid=org_id, custid=cust_id, bill_no=bill_no, bill_amt=bill_amt, due_amt=due_amt, bill_date=bill_date, cleared_on=cleared_on,creditperiod=credit_period )
+            p = Outstanding(orgid=org_id, custid=cust_id, bill_no=bill_no, bill_amt=bill_amt, payment=paid_amount,due_amt=due_amt, bill_date=bill_date, cleared_on=cleared_on,creditperiod=credit_period )
             p.save()
             messages.success(request, 'Outstanding details updated.')
             return render(request,'organisations/outstanding.html',{'customer': customer,'orgdata' :orgdata})
@@ -261,7 +263,7 @@ def newchart(request):
         
         org_id=request.session['orgid']
         orgdata = Organisations.objects.get(id=org_id)
-        dataset = Outstanding.objects.raw('select o.id as id, o.id, o.bill_date,o.bill_amt,o.due_amt from outstanding o')
+        dataset = Outstanding.objects.all()#raw('select o.id as id, o.id, o.bill_date,o.bill_amt,o.due_amt from outstanding o')
         return render(request, 'organisations/newchart.html', {'dataset': dataset,'orgdata' :orgdata})
     else:
         messages.error(request, 'You Are Not Logged In!!!')
@@ -401,6 +403,30 @@ def dashHome(request):
         org_id=request.session['orgid']
         orgdata = Organisations.objects.get(id=org_id)
         return render(request,'organisations/dashboard_main_content.html',{'orgdata' : orgdata })
+    else:
+        messages.error(request, 'You Are Not Logged In!!!')
+        return render(request, 'organisations/orglogin.html')
+def payment(request):
+    if request.session.has_key('orgid'):
+        
+        
+        org_id=request.session['orgid']
+        orgdata = Organisations.objects.get(id=org_id)
+        customer = Outstanding.objects.raw('select o.custid as id,c.custname ,o.custid from customer c, outstanding o where o.custid = c.id and o.orgid=%s',[org_id])
+        if request.method == 'POST':
+                
+                
+            cust_id=request.POST.get('custid')
+            amount=request.POST.get('amount')
+            
+            Outstanding.objects.filter(custid=cust_id).update(payment=amount)
+
+
+            messages.success(request, 'Payment Done!!.')
+            return redirect("/payment")
+        else:
+            return render(request, 'organisations/paymentpage.html',{'orgdata':orgdata,'customer':customer})
+        #return render(request,'organisations/dashboard_main_content.html',{'orgdata' : orgdata })
     else:
         messages.error(request, 'You Are Not Logged In!!!')
         return render(request, 'organisations/orglogin.html')
