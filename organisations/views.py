@@ -246,7 +246,7 @@ def showdebtors(request):
         #customer = Customer.objects.get(id=id)
             org_id=request.session['orgid']
             orgdata = Organisations.objects.get(id=org_id)
-            data2 = Customer.objects.raw('select c.id as id ,c.id,c.custname,o.bill_no,o.bill_amt,o.due_amt,o.bill_date,o.cleared_on,o.creditperiod from customer c, outstanding o where c.id=o.custid and o.orgid=1')
+            data2 = Customer.objects.raw('select c.id as id ,c.id,c.custname,o.bill_no,o.bill_amt,o.due_amt,o.bill_date,o.cleared_on,o.creditperiod from customer c, outstanding o where c.id=o.custid and o.due_amt > 0 and o.orgid=%s',[org_id])
             
             return render(request,"organisations/showdebt.html",{'debtors': data2,'orgdata' :orgdata})
         
@@ -382,3 +382,25 @@ def destroyproduct(request,id):
         return redirect("/showproduct/")
     else:
         return render(request,'organisations/editproduct.html',{'product': product})
+
+def location(request):
+    if request.session.has_key('orgid'):
+        
+        
+        org_id=request.session['orgid']
+        orgdata = Organisations.objects.get(id=org_id)
+        locate = Customer.objects.raw('select c.id as id,c.orgid, c.custstatus from customer c where c.orgid=%s',[org_id])
+        return render(request,'organisations/location.html',{ 'locate': locate, 'orgdata' :orgdata })
+    else:
+        messages.error(request, 'You Are Not Logged In!!!')
+        return render(request, 'organisations/orglogin.html')
+def dashHome(request):
+    if request.session.has_key('orgid'):
+        
+        
+        org_id=request.session['orgid']
+        orgdata = Organisations.objects.get(id=org_id)
+        return render(request,'organisations/dashboard_main_content.html',{'orgdata' : orgdata })
+    else:
+        messages.error(request, 'You Are Not Logged In!!!')
+        return render(request, 'organisations/orglogin.html')
