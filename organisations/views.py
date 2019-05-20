@@ -319,3 +319,66 @@ def productregister(request):
     else:
         messages.error(request, 'You Are Not Logged In!!!')
         return render(request, 'organisations/orglogin.html')
+
+
+def showproduct(request):
+    if request.session.has_key('orgid'):
+            
+        org_id=request.session['orgid']
+        orgdata = Organisations.objects.get(id=org_id)
+        products = Product.objects.filter(orgid=org_id)
+        return render(request,"organisations/showproduct.html",{'products':products,'orgdata' :orgdata})
+
+
+
+def editproduct(request, id):
+    if request.session.has_key('orgid'):
+        product = Product.objects.get(id=id)
+        org_id=request.session['orgid']
+        orgdata = Organisations.objects.get(id=org_id)
+        
+        if request.method == "POST":
+                org_id=request.POST.get('orgid')
+                prdt_brand=request.POST.get('brand')
+                prdt_quantity=request.POST.get('quantity')
+                prdt_price=request.POST.get('price')
+                prdt_gst=request.POST.get('gst')
+                product = Product(orgid=org_id, brand=prdt_brand, quantity=prdt_quantity,price=prdt_price,gst=prdt_gst )
+                product.save()
+                return render(request,'organisations/showproduct.html.html',{'product': product,'orgdata' :orgdata})
+        else:
+            return render(request,'organisations/editproduct.html',{'product': product,'orgdata' :orgdata})
+    else:
+        messages.error(request, 'You Are Not Logged In!!!')
+        return render(request, 'organisations/orglogin.html')
+
+
+def updateproduct(request, id):
+    if request.session.has_key('orgid'):
+        org_id=request.session['orgid']
+        orgdata = Organisations.objects.get(id=org_id)
+        
+        product = Product.objects.get(id=id)
+        if request.method == 'POST':
+                
+                
+            prdt_brand=request.POST.get('brand')
+            prdt_quantity=request.POST.get('quantity')
+            prdt_price=request.POST.get('price')
+            prdt_gst=request.POST.get('gst')
+            Product.objects.filter(id=id).update(brand=prdt_brand, quantity=prdt_quantity,price=prdt_price,gst=prdt_gst)
+
+
+            messages.success(request, 'Product details updated.')
+            return redirect("/showproduct/")
+        else:
+            return render(request, 'organisations/productRegister.html',{'orgdata':orgdata})
+
+
+def destroyproduct(request,id):
+    if request.session.has_key('orgid'):
+        product = Product.objects.get(id=id)
+        product.delete()
+        return redirect("/showproduct/")
+    else:
+        return render(request,'organisations/editproduct.html',{'product': product})

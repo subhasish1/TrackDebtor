@@ -21,6 +21,10 @@ urlpatterns = [
     path('newchart/',views.newchart,name='newchart'),
     path('orglogout/',views.orglogout,name='orglogout'),
     path('resetpassword/',views.resetpassword,name='resetpassword'),
-    path('productregister/',views.productregister,name='productregister'),    
+    path('productregister/',views.productregister,name='productregister'), 
+    path('showproduct/',views.showproduct, name='showproduct'),
+    path('editproduct/<int:id>',views.editproduct, name='editproduct'),
+    path('updateproduct/<int:id>',views.updateproduct, name='updateproduct'),
+    path('deleteproduct/<int:id>',views.destroyproduct, name='destroyproduct'),   
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
