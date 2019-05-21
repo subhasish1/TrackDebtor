@@ -1,8 +1,8 @@
-{% extends 'organisations/dashboard.html' %}
+{% extends 'organisations/base.html' %}
 
-{% block content2 %}
+{% block content %}
   <!--Section: Contact v.2-->
-  <section class="mb-4">
+  <section class="mb-6">
 
   <!--Section heading-->
   <h2 class="h1-responsive font-weight-bold text-center my-4">Organisation Resigstraions Form</h2>
@@ -24,7 +24,7 @@
                   <!--Grid column-->
                   <div class="col-md-6">
                     <div class="md-form mb-0">
-                      <label for="name" class="">Name</label>
+                      <label for="name" class="">Company Name</label>
                       <input type="text" id="name" name="orgname" class="form-control">
                       
                   </div>
@@ -39,7 +39,7 @@
                   <!--Grid column-->
                   <div class="col-md-6">
                     <div class="md-form mb-0">
-                      <label for="email" class="">Your email</label>
+                      <label for="email" class="">Company email</label>
                       <input type="text" id="email" name="orgemail" class="form-control">
                       
                   </div>
@@ -117,7 +117,7 @@
                 <!--Grid column-->
                 <div class="col-md-6">
                   <div class="md-form mb-0">
-                    <label for="orglogo" class="">Logo</label>
+                    <label for="orglogo" class="">Company Logo</label>
                     <input type="file" id="orglogo" name="orglogo" class="form-control">
                     
                 </div>

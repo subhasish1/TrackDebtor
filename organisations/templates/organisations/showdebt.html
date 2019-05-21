@@ -43,11 +43,21 @@
      <br>
      <br>
      <br> 
-    <link rel="stylesheet" href="{% static 'css/style.css' %}"/>  
-</head>  
-<body>  
 
 <section class="mb-4">
+    {% if messages %}
+  <div class=row>
+      <div class='col-sm-6 col-sm-offset-3'>
+    
+        {% for message in messages %}
+        <p {% if message.tags == 'success' %} class="alert alert-success" {% endif %} >{{ message }}</p>
+        
+        {% endfor %}
+        
+        
+      </div>
+   </div>   
+{% endif %}
  
 <table class="table table-striped table-bordered table-sm">  
     <thead class="thead-dark">  

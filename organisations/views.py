@@ -51,9 +51,9 @@ def orgreg(request):
         recipient_list = [org_email]
         send_mail(subject,message,email_form,recipient_list)
 
-
-
-        return HttpResponse(request.FILES['orglogo'].name)
+        message.sucsess(request,"Organisations registered successfully!!")
+        return render(request,'organisations/orgRegister.html')
+        #return HttpResponse(request.FILES['orglogo'].name)
         #return render(request,'organisations/orgRegister.html')
         #return HttpResponse(request.FILES['picture'].name)
     else:
@@ -214,24 +214,26 @@ def email(request,id):
     cust = Customer.objects.get(id=id)
     cust_email = cust.custemail
     print(cust_email)
+    org_id=request.session['orgid']
+    orgdata = Organisations.objects.get(id=org_id)
 
+   
+    data = Outstanding.objects.raw("select %s as id,o.bill_amt,o.due_amt from outstanding o  where o.custid = %s and o.orgid=%s", [cust.id,cust.id,org_id])
+    print(data)
+    for data in data:
+        billamt = data.bill_amt
+        dueamt = data.due_amt
+    
 
-    #list=Outstanding.objects.filter(due_amt > 0)
-    #elist=[]
-    #for p in Customer.objects.raw("select c.custemail from customer c,outstanding o where c.id=o.custid and o.due_amt > 0 "):
-        #elist.append(p)
-    #c = connection.cursor()
-    #c.execute('SELECT * FROM customer')
-    #c.execute("select c.custemail from customer c,outstanding o where c.id=o.custid and due_amt > 0")
-    #x=c.fetchall()
-    #for k in x:
-      #  elist.append(k)
-    subject = 'Thank you for registering to our site'
-    message = 'WElcome to track Debtors'
+    subject = 'Track Debtor'
+    message = 'Your bill amount is: ' + data.bill_amt +" Due Amount: "+ data.due_amt +" Please pay your bill as soon as possible"
+    #message = "please pay your bill"
     email_form = settings.EMAIL_HOST_USER
+    #recipient_list = [cust_email]
     recipient_list = [cust_email]
     send_mail(subject,message,email_form,recipient_list)
-    return HttpResponse(okk)
+
+    return HttpResponse(request,'organisation/showdebt.html')
 
     scheduler = BackgroundScheduler()
     job = None
@@ -419,7 +421,7 @@ def payment(request):
             cust_id=request.POST.get('custid')
             amount=request.POST.get('amount')
             
-            Outstanding.objects.filter(custid=cust_id).update(payment=amount)
+            Outstanding.objects.filter(custid=cust_id).update(due_amt=amount)
 
 
             messages.success(request, 'Payment Done!!.')
@@ -430,3 +432,26 @@ def payment(request):
     else:
         messages.error(request, 'You Are Not Logged In!!!')
         return render(request, 'organisations/orglogin.html')
+
+def adminlogin(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        request.session['sname']="username"
+        print(username)
+        if username == "subhasish@thejaingroup.com" and password == "admin":
+            request.session['logged_in'] = True
+            return redirect('orgreg')
+        else:
+            messages.error(request, 'Error wrong username/password')
+    return render(request, 'organisations/adminlogin.html')
+
+def adminlogout(request):
+    try:
+        del request.session['logged_in']
+        messages.success(request, 'You are sucessfully logout!!Please login!!!')
+        return render(request, 'organisations/adminlogin.html')
+    except KeyError:
+        return render(request, 'organisations/adminlogin.html')
+def teamMember(request):
+    return render(request,'organisations/teamMember.html')

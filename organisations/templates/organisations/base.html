@@ -9,14 +9,15 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="{% static 'organisations/images/me.jpg' %}" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'organisations/images/logo2.png' %}" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'organisations/css/team.css' %}" crossorigin="anonymous">
 
-    <title>Hello, world!</title>
+    <title>TrackDebtors</title>
   </head>
   <body>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
           <div class="container">
-                <img src="{% static 'mysite/images/me.jpg' %}" width="30" height="30" alt="">
+                <img src="{% static 'organisations/images/logo2.png' %}" width="30" height="30" alt="">
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                   <span class="navbar-toggler-icon"></span>
                 </button>
@@ -26,16 +27,12 @@
                       <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="{% url 'portfolio' %}">Protfolio</a>
+                      <a class="nav-link" href="{% url 'teamMember' %}">Our Team </a>
                     </li>
+                    
+                    
                     <li class="nav-item">
-                      <a class="nav-link" href="{% url 'orgreg' %}">organisation Registration</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="{% url 'custreg' %}">Customer Registration </a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="{% url 'outstanding' %}">outstanding </a>
+                      <a class="nav-link" href="{% url 'adminlogout' %}">Logout </a>
                     </li>
                    
                   </ul>
