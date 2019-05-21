@@ -265,7 +265,7 @@ def newchart(request):
         
         org_id=request.session['orgid']
         orgdata = Organisations.objects.get(id=org_id)
-        dataset = Outstanding.objects.all()#raw('select o.id as id, o.id, o.bill_date,o.bill_amt,o.due_amt from outstanding o')
+        dataset = Outstanding.objects.raw('select o.id as id, o.orgid, o.bill_date,o.bill_amt,o.due_amt from outstanding o')
         return render(request, 'organisations/newchart.html', {'dataset': dataset,'orgdata' :orgdata})
     else:
         messages.error(request, 'You Are Not Logged In!!!')
