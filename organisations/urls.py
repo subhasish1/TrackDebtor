@@ -28,6 +28,9 @@ urlpatterns = [
     path('deleteproduct/<int:id>',views.destroyproduct, name='destroyproduct'), 
     path('location',views.location, name='location'), 
     path('dashHome',views.dashHome, name='dashHome'), 
-    path('payment',views.payment, name='payment'),  
+    path('payment',views.payment, name='payment'),
+    path('adminlogin',views.adminlogin, name='adminlogin'),
+    path('adminlogout',views.adminlogout, name='adminlogout'),
+    path('teamMember',views.teamMember, name='teamMember'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

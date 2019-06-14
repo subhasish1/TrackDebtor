@@ -1,0 +1,63 @@
+ {% extends 'organisations/base.html' %}
+ {% load static%}
+ 
+ 
+
+{% block content %}
+
+ <div class="row">
+  <div class="column">
+    <div class="card">
+      <img src="{% static 'organisations/images/me.jpg' %}" alt="Jane" style="width:100%">
+      <div class="container">
+        <h2>Subhasish Karmakar</h2>
+        <p class="title">CEO &amp; Founder</p>
+        <p>Currently touch with Jain Group</p>
+        <p>subhasish@trackdebtors.com</p>
+        <p><button class="button">Contact</button></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="column">
+    <div class="card">
+      <img src="{% static 'organisations/images/b.jpg' %}" alt="Mike" style="width:100%">
+      <div class="container">
+        <h2>Banani Rana</h2>
+        <p class="title">Developer</p>
+        <p>Certified Django Developer</p>
+        <p>banani@trackdebtors.com</p>
+        <p><button class="button">Contact</button></p>
+      </div>
+    </div>
+  </div>
+  <div class="column">
+    <div class="card">
+      <img src="{% static 'organisations/images/a.jpg' %}" alt="John" style="width:100%">
+      <div class="container">
+        <h2>Arpan Dey</h2>
+        <p class="title">Jr.Developer</p>
+        <p>Certified Django Developer</p>
+        <p>arpan@trackdebtors.com</p>
+        <p><button class="button">Contact</button></p>
+      </div>
+    </div>
+  </div>
+</div> 
+
+  <div class="column">
+    <div class="card">
+      <img src="{% static 'organisations/images/c.jpg' %}" alt="John" style="width:100%">
+      <div class="container">
+        <h2>Chandan Mondal</h2>
+        <p class="title">Designer</p>
+        <p>chandan@trackdebtors.com</p>
+        <p>examp</p>
+        <p><button class="button">Contact</button></p>
+      </div>
+    </div>
+  </div>
+</div> 
+
+
+{% endblock%}
