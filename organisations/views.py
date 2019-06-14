@@ -393,7 +393,7 @@ def location(request):
         
         org_id=request.session['orgid']
         orgdata = Organisations.objects.get(id=org_id)
-        locate = Customer.objects.raw('select c.id as id,c.orgid, c.custstatus from customer c where c.orgid=%s',[org_id])
+        locate = Customer.objects.raw('select c.id as id,c.orgid, c.custstatus from customer c where c.orgid=%s',[org_id])#raw("select id as id ,custstatus, count(custstatus) from customer group by custstatus and orgid=%s",[org_id])#raw('select c.id as id,c.orgid, c.custstatus from customer c where c.orgid=%s',[org_id])
         return render(request,'organisations/location.html',{ 'locate': locate, 'orgdata' :orgdata })
     else:
         messages.error(request, 'You Are Not Logged In!!!')
@@ -421,7 +421,8 @@ def payment(request):
             cust_id=request.POST.get('custid')
             amount=request.POST.get('amount')
             
-            Outstanding.objects.filter(custid=cust_id).update(due_amt=amount)
+            Outstanding.objects.filter(custid=cust_id).update(payment=amount)
+            
 
 
             messages.success(request, 'Payment Done!!.')
