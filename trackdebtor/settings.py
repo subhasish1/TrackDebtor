@@ -129,7 +129,7 @@ EMAIL_HOST ='smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587 
 EMAIL_HOST_USER = 'onlyme.karmakar@gmail.com'
-EMAIL_HOST_PASSWORD = 'subhasishlove1@'
+EMAIL_HOST_PASSWORD = '********'
 
 #APSCHEDULER_DATETIME_FORMAT =  "N j, Y, f:s a"  # Default
 
